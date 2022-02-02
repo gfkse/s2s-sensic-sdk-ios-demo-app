@@ -4,9 +4,9 @@ import AVKit
 import AVFoundation
 
 class VODExtensionViewController: BaseViewController {
-    
+    private let configUrl = "https://demo-config-preproduction.sensic.net/s2s-ios.json"
     private let vodUrl = "https://demo-config-preproduction.sensic.net/video/video3.mp4"
-    
+    private let mediaId = "s2sdemomediaid_ssa_ios_new"
     @IBOutlet weak var playerView: UIView!
     
     private var player: AVPlayer!
@@ -22,7 +22,7 @@ class VODExtensionViewController: BaseViewController {
         setupVideoPlayer()
         
         //Important: Do not hold a strong reference to the extension
-        playerExtension = AVPlayerS2SExtension(avPlayerController: self.playerViewController, contentId: "contentId", customParams: ["":""])
+        playerExtension = AVPlayerS2SExtension(avPlayerController: self.playerViewController, configureURL: configUrl, mediaId: mediaId, contentId: "contentId", customParams: ["":""])
         //If you want to change the parameters, please evoke the line below
         //playerExtension?.setParameters(contentId: "", customParams: ["":""])
     }

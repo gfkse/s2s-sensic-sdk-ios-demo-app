@@ -4,8 +4,9 @@ import AVKit
 import AVFoundation
 
 class LiveNoSeekBarExtensionViewController: BaseViewController {
-    
+    private let configUrl = "https://demo-config-preproduction.sensic.net/s2s-ios.json"
     private let liveUrl = "https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index_1.m3u8"
+    private let mediaId = "s2sdemomediaid_ssa_ios_new"
     
     @IBOutlet weak var playerView: UIView!
     
@@ -22,7 +23,7 @@ class LiveNoSeekBarExtensionViewController: BaseViewController {
         setupVideoPlayer()
         
         //Important: Do not hold a strong reference to the extension
-        playerExtension = AVPlayerLiveS2SExtension(avPlayerController: self.playerViewController, contentId: "contentId", customParams: ["":""])
+        playerExtension = AVPlayerLiveS2SExtension(avPlayerController: self.playerViewController, configureURL: configUrl, mediaId: mediaId, contentId: "contentId", customParams: ["":""])
         //If you want to change the parameters, please evoke the line below
         //playerExtension?.setParameters(contentId: "", customParams: ["":""])
         
