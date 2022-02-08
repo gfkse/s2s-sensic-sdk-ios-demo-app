@@ -3,38 +3,37 @@ import WebKit
 import s2s_sdk_ios
 
 class ContentViewController: UIViewController {
-    
+
+    @IBOutlet private weak var containerView: UIView!
     private var webView: WKWebView!
-    @IBOutlet private weak var webViewContainer: UIView!
     
-    private let mediaId = "s2sdemomediaid_sst_android"
-    private let videoUrl = "https://www.sensic.net"
-    private let configUrl = "https://demo-config.sensic.net/s2s-android.json"
+    private let mediaId = "s2sdemomediaid_sst_ios"
+    private let stringUrl = "https://sensic.net"
+    private let configUrl = "https://demo-config-preproduction.sensic.net/s2s-ios.json"
     // Tracking Agent
     var s2sAgent: S2SAgent?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        guard  let url = URL(string: videoUrl) else { return }
-                
-        do {
-            self.s2sAgent = try S2SAgent(configUrl: self.configUrl, mediaId: self.mediaId)
-        } catch let error {
-            print(error)
-        }
+    
+        guard let url = URL(string: stringUrl) else { return }
+        s2sAgent = try! S2SAgent(configUrl: "https://demo-config-preproduction.sensic.net/s2s-ios.json", mediaId: "s2sdemomediaid_sst_ios")
+        s2sAgent?.impression(contentId: url.absoluteString)
         
-        self.webView.load(URLRequest(url: url))
+        let request = URLRequest(url: url)
+        webView.load(request)
     }
     
     override func loadView() {
-        webView = WKWebView()
+        super.loadView()
+        
+        let webConfiguration = WKWebViewConfiguration()
+        webView = WKWebView(frame: containerView.bounds, configuration: webConfiguration)
+        webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         webView.navigationDelegate = self
-        webViewContainer = webView
+        self.containerView.addSubview(webView)
     }
 }
-
-
 
 extension ContentViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
