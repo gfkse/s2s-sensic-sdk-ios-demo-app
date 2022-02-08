@@ -23,7 +23,7 @@ class LiveNoSeekBarExtensionViewController: BaseViewController {
         setupVideoPlayer()
         
        
-        let config = S2SCongig(mediaId: mediaId, url: configUrl, optIn: true)
+        let config = S2SConfig(mediaId: mediaId, url: configUrl)
         //Important: Do not hold a strong reference to the extension
         playerExtension = AVPlayerLiveExtension(avPlayerController: self.playerViewController, config: config, contentId: "contentId", customParams: ["":""])
         //If you want to change the parameters, please evoke the line below
