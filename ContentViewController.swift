@@ -18,7 +18,7 @@ class ContentViewController: UIViewController {
     
         guard let url = URL(string: stringUrl) else { return }
         s2sAgent = try! S2SAgent(configUrl: "https://demo-config-preproduction.sensic.net/s2s-ios.json", mediaId: "s2sdemomediaid_sst_ios")
-        s2sAgent?.impression(contentId: url.absoluteString)
+        s2sAgent?.impression(contentId: "default")
         
         let request = URLRequest(url: url)
         webView.load(request)
@@ -51,7 +51,7 @@ extension ContentViewController: WKNavigationDelegate {
         ///Example custom params for Spain
         //customParams.put("cp1", "appsBundleID");
         
-        s2sAgent?.impression(contentId: url, customParams: customParams)
+        s2sAgent?.impression(contentId: "default", customParams: ["":""])
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
