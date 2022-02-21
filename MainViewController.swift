@@ -12,7 +12,11 @@ class MainViewController: BaseViewController {
     @IBOutlet weak var contentButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var webSdkButton: UIButton!
+    @IBOutlet weak var vodAdsButton: UIButton!
+    @IBOutlet weak var liveAdsButton: UIButton!
+    @IBOutlet weak var liveNoSeekAdsButton: UIButton!
     
+    @IBOutlet weak var manualStackViewWithAds: UIStackView!
     @IBOutlet weak var manualStackView: UIStackView!
     @IBOutlet weak var extensionStackView: UIStackView!
     override func viewDidLoad() {
@@ -26,6 +30,10 @@ class MainViewController: BaseViewController {
         liveButton.setUpLayer(button: liveButton, title: "LIVE")
         liveNoSeekButton.setUpLayer(button: liveNoSeekButton, title: "LIVE (No Seek)")
         
+        vodAdsButton.setUpLayer(button: vodAdsButton, title: "Video on Demand with Ads")
+        liveAdsButton.setUpLayer(button: liveAdsButton, title: "LIVE with Ads")
+        liveNoSeekAdsButton.setUpLayer(button: liveNoSeekAdsButton, title: "LIVE (No seek) with Ads")
+        
         vodExtensionButton.setUpLayer(button: vodExtensionButton, title: "Video on Demand")
         liveExtensionButton.setUpLayer(button: liveExtensionButton, title: "LIVE")
         liveNoSeekExtensionButton.setUpLayer(button: liveNoSeekExtensionButton, title: "LIVE (No Seek)")
@@ -33,6 +41,9 @@ class MainViewController: BaseViewController {
         contentButton.setUpLayer(button: contentButton, title: "Content")
         settingsButton.setUpLayer(button: settingsButton, title: "Settings")
         webSdkButton.setUpLayer(button: webSdkButton, title: "Web Sdk")
+    }
+    @IBAction func showManualImplementationWithAds(_ sender: Any) {
+        manualStackViewWithAds.isHidden = !manualStackViewWithAds.isHidden
     }
     @IBAction func showManualImplementaion(_ sender: Any) {
         manualStackView.isHidden = !manualStackView.isHidden
