@@ -16,8 +16,8 @@ class VODAdsViewController: BaseViewController {
     
     private let url = "https://demo-config-preproduction.sensic.net/video/video3.mp4"
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
-    private let contentId = "default"
-    private let adId = "ad"
+    private let contentIdDefault = "default"
+    private let contentIdAd = "ad"
     
     private var muteObservation: NSKeyValueObservation?
     
@@ -244,7 +244,7 @@ class VODAdsViewController: BaseViewController {
                 
                 isPostRollPlayed = player.currentTime().seconds == player.currentItem?.duration.seconds
                 if !isPostRollPlayed {
-                    s2sAgent?.playStreamOnDemand(contentId: contentId,
+                    s2sAgent?.playStreamOnDemand(contentId: contentIdDefault,
                                                  streamId: url,
                                                  options: ["volume": "\(playerVolume ?? 0)", "speed": "\(player.rate)"],
                                                  customParams: [:])
@@ -292,7 +292,7 @@ extension VODAdsViewController: IMAAdsManagerDelegate {
         }
         
         if event.type == IMAAdEventType.RESUME {
-            adAgent?.playStreamOnDemand(contentId: adId,
+            adAgent?.playStreamOnDemand(contentId: contentIdAd,
                                         streamId: url + "ads",
                                         options: ["volume": "\(playerVolume ?? 0)", "speed": "\(1.0)"],
                                         customParams: [:])
@@ -320,8 +320,7 @@ extension VODAdsViewController: IMAAdsManagerDelegate {
         isPlayingAd = true
         hideContentPlayer()
         
-        
-        adAgent?.playStreamOnDemand(contentId: adId,
+        adAgent?.playStreamOnDemand(contentId: contentIdAd,
                                     streamId: url + "ads",
                                     options: ["volume": "\(playerVolume ?? 0)", "speed": "\(1.0)"],
                                     customParams: [:])
