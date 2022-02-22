@@ -30,6 +30,11 @@ class VODAdsViewController: BaseViewController {
     
     private var interval: Int64 = 0
     private var isPlayingAd: Bool = false
+    
+    private var isPostRollPlayed: Bool = false
+    
+    @IBOutlet private weak var playerView: UIView!
+    @IBAction func showChangeSpeedOptionView(_ sender: UIButton) {
         showChangeSpeedAlert()
     }
     
