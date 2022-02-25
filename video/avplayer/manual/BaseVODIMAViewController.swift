@@ -12,15 +12,13 @@ class BaseVODIMAViewController: BaseViewController {
     var vodPlayerView: UIView!
     
     private let adTagURLString = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpost&cmsid=496&vid=short_onecue&correlator="
-
+    
     var playerVolume: Int?
     var player: AVPlayer!
     var playerViewController: AVPlayerViewController!
     
-    
     var adCurrentPosition: Int64 = 0
     var isPlayingAd: Bool = false
-    
     var isPostRollPlayed: Bool = false
     
     deinit {
@@ -31,8 +29,10 @@ class BaseVODIMAViewController: BaseViewController {
         super.viewDidLoad()
         
         setNavigationBarTitle(title: "Video on Demand with ads")
+        registerDidBecomeActiveObserver()
+        registerDidEnterBackgroundObserver()
+        
         delegate = self
-    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,9 +41,24 @@ class BaseVODIMAViewController: BaseViewController {
         setUpAdsLoader()
         
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated);
         self.requestAds()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if player.timeControlStatus == .playing {
+            player.pause()
+        }
+        
+        adsManager?.destroy()
+        if (self.isMovingFromParent) {
+            playerViewController.view.removeFromSuperview()
+            playerViewController.removeFromParent()
+        }
     }
     
     func setupVideoPlayer(with url: String) {
@@ -70,12 +85,10 @@ class BaseVODIMAViewController: BaseViewController {
     
     func setUpAdsLoader() {
         adsLoader = IMAAdsLoader(settings: nil)
-        
     }
     
     func requestAds() {
         // Create ad display container for ad rendering.
-        
         let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.vodPlayerView, viewController: self)
         // Create an ad request with our ad tag, display container, and optional user context.
         let request = IMAAdsRequest(
@@ -104,7 +117,7 @@ class BaseVODIMAViewController: BaseViewController {
         playerViewController.view.removeFromSuperview()
         playerViewController.removeFromParent()
     }
-
+    
     func registerDidEnterBackgroundObserver() {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
@@ -118,7 +131,7 @@ class BaseVODIMAViewController: BaseViewController {
     @objc func didBecomeActive() {
         if playerViewController.player?.timeControlStatus == .paused {
             if isPlayingAd {
-                adsManager.resume()
+                adsManager?.resume()
             } else {
                 playerViewController.player?.play()
             }
@@ -127,21 +140,7 @@ class BaseVODIMAViewController: BaseViewController {
     
     @objc func appDidEnterBackground() {
         if isPlayingAd {
-            adsManager.pause()
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        if player.timeControlStatus == .playing {
-            player.pause()
-        }
-        
-        adsManager.destroy()
-        if (self.isMovingFromParent) {
-            playerViewController.view.removeFromSuperview()
-            playerViewController.removeFromParent()
+            adsManager?.pause()
         }
     }
     
@@ -157,8 +156,6 @@ class BaseVODIMAViewController: BaseViewController {
         hideContentPlayer()
     }
 }
-
-
 
 extension BaseVODIMAViewController: BaseViewControllerDelegate {
     func setPlayerRate(with value: Float?) {
