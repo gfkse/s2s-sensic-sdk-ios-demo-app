@@ -14,8 +14,7 @@ class MainViewController: BaseViewController {
     @IBOutlet weak var webSdkButton: UIButton!
     @IBOutlet weak var vodAdsButton: UIButton!
     
-    @IBOutlet weak var vodIMAExtensionButton: UIButton!
-    
+   
     @IBOutlet weak var manualStackView: UIStackView!
     @IBOutlet weak var extensionStackView: UIStackView!
     override func viewDidLoad() {
@@ -31,7 +30,7 @@ class MainViewController: BaseViewController {
         
         vodAdsButton.setUpLayer(button: vodAdsButton, title: "Video on Demand with Ads")
     
-        vodIMAExtensionButton.setUpLayer(button: vodIMAExtensionButton, title: "VoD IMA Extension")
+        
         vodExtensionButton.setUpLayer(button: vodExtensionButton, title: "Video on Demand")
         liveExtensionButton.setUpLayer(button: liveExtensionButton, title: "LIVE")
         liveNoSeekExtensionButton.setUpLayer(button: liveNoSeekExtensionButton, title: "LIVE (No Seek)")
