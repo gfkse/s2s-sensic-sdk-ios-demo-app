@@ -13,6 +13,8 @@ class MainViewController: BaseViewController {
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var webSdkButton: UIButton!
     @IBOutlet weak var vodAdsButton: UIButton!
+    @IBOutlet weak var liveAdsButton: UIButton!
+    @IBOutlet weak var liveAdsExtensionButton: UIButton!
     
     @IBOutlet weak var vodIMAExtensionButton: UIButton!
     
@@ -29,8 +31,9 @@ class MainViewController: BaseViewController {
         liveButton.setUpLayer(button: liveButton, title: "LIVE")
         liveNoSeekButton.setUpLayer(button: liveNoSeekButton, title: "LIVE (No Seek)")
         
-        vodAdsButton.setUpLayer(button: vodAdsButton, title: "Video on Demand with Ads")
-    
+        vodAdsButton.setUpLayer(button: vodAdsButton, title: "VoD IMA")
+        liveAdsButton.setUpLayer(button: liveAdsButton, title: "LIVE Ads")
+        liveAdsExtensionButton.setUpLayer(button: liveAdsExtensionButton, title: "LIVE Ads")
         vodIMAExtensionButton.setUpLayer(button: vodIMAExtensionButton, title: "VoD IMA Extension")
         vodExtensionButton.setUpLayer(button: vodExtensionButton, title: "Video on Demand")
         liveExtensionButton.setUpLayer(button: liveExtensionButton, title: "LIVE")
