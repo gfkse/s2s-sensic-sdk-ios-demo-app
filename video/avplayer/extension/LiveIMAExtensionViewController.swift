@@ -13,6 +13,7 @@ class LiveIMAExtensionViewController: BaseLiveIMAViewController {
     @IBOutlet weak var playerView: UIView!
     
     private var playerExtension: AVPlayerLiveExtension?
+    private var lastPosition: Int64 = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,10 +66,14 @@ extension LiveIMAExtensionViewController: IMAAdsLoaderDelegate {
 
 extension LiveIMAExtensionViewController: IMAStreamManagerDelegate {
     func streamManager(_ streamManager: IMAStreamManager!, didReceive event: IMAAdEvent!) {
-        playerExtension?.activateGoogleIMASupport(from: event)
+        playerExtension?.activateGoogleIMASupport(from: event, with: lastPosition)
     }
     
     func streamManager(_ streamManager: IMAStreamManager!, didReceive error: IMAAdError!) {
         print("Stream Manager error: " + error.message)
+    }
+    
+    func streamManager(_ streamManager: IMAStreamManager!, adDidProgressToTime time: TimeInterval, adDuration: TimeInterval, adPosition: Int, totalAds: Int, adBreakDuration: TimeInterval, adPeriodDuration: TimeInterval) {
+        lastPosition = Int64(time * 1000)
     }
 }

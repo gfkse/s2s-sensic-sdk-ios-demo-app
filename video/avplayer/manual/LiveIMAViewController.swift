@@ -64,8 +64,15 @@ class LiveIMAViewController: BaseLiveIMAViewController {
     
     //MARK: - Setup AdAgent
     func setupAdAgent() {
+        let adPositionCallback: StreamPositionCallback = { [weak self] in
+            guard let self = self else {
+                return Int64(0)
+            }
+            print("Time callback: \(self.adCurrentPosition)")
+            return self.adCurrentPosition
+        }
         do {
-            adAgent = try S2SAgent(configUrl: configUrl, mediaId: mediaId)
+            adAgent = try S2SAgent(configUrl: configUrl, mediaId: mediaId, streamPositionCallback: adPositionCallback)
         } catch let error {
             print(error)
         }
@@ -169,11 +176,6 @@ extension LiveIMAViewController: IMAAdsLoaderDelegate {
 
 extension LiveIMAViewController: IMAStreamManagerDelegate {
     func streamManager(_ streamManager: IMAStreamManager!, didReceive event: IMAAdEvent!) {
-        if event.type == IMAAdEventType.STREAM_STARTED {
-            isPlayingAd = true
-            agent?.stop()
-            adAgent?.playStreamLive(contentId: contentIdAd, streamStart: "", streamOffset: -1, streamId: urlString + "ads", customParams: [:])
-        }
         
         if event.type == IMAAdEventType.AD_PERIOD_STARTED {
             isPlayingAd = true
