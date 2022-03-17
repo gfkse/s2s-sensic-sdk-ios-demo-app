@@ -11,7 +11,7 @@ class LiveExtensionViewController: BaseViewController {
     
     private var player: AVPlayer!
     private var playerViewController: AVPlayerViewController!
-    private weak var playerExtension: AVPlayerLiveExtension?
+    private var playerExtension: AVPlayerLiveExtension?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,9 +22,9 @@ class LiveExtensionViewController: BaseViewController {
         setupVideoPlayer()
         
         
-        let config = S2SConfig(mediaId: mediaId, url: configUrl)
-        //Important: Do not hold a strong reference to the extension
+        let config = S2SConfig(mediaId: mediaId, url: configUrl)        
         playerExtension = AVPlayerLiveExtension(avPlayerController: self.playerViewController, config: config, contentId: "contentId", customParams: ["":""])
+        
         //If you want to change the parameters, please evoke the line below
         //playerExtension?.setParameters(contentId: "", customParams: ["":""])
         

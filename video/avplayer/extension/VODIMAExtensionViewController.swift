@@ -9,20 +9,20 @@ class VODIMAExtensionViewController: BaseVODIMAViewController {
     private let configUrl = "https://demo-config-preproduction.sensic.net/s2s-ios.json"
     private let vodUrl = "https://demo-config-preproduction.sensic.net/video/video3.mp4"
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
+    
     @IBOutlet weak var playerView: UIView!
-    
-    
-    private weak var playerExtension: AVPlayerVODExtension?
-    
+
+    private var playerExtension: AVPlayerVODExtension?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         vodPlayerView = playerView
         setupVideoPlayer(with: vodUrl)
+        
         let config = S2SConfig(mediaId: mediaId, url: configUrl)
-        //Important: Do not hold a strong reference to the extension
         playerExtension = AVPlayerVODExtension(avPlayerController: playerViewController,config: config, contentId: "contentId", customParams: ["":""])
+        
         //If you want to change the parameters, please evoke the line below
         //playerExtension?.setParameters(contentId: "", customParams: ["":""])
         

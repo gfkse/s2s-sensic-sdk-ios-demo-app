@@ -54,7 +54,10 @@ class VODIMAViewController: BaseVODIMAViewController {
     
     //MARK: - Setup Content Agent
     func setupAgent() {
-        let streamPositionCallback: StreamPositionCallback = { [unowned self] in
+        let streamPositionCallback: StreamPositionCallback = { [weak self] in
+            guard let self = self else {
+                return Int64(0)
+            }
             print("Time callback: \(self.player.currentTime().seconds)")
             return Int64(self.player.currentTime().seconds * 1000) // we need to return milliseconds
         }
@@ -68,9 +71,12 @@ class VODIMAViewController: BaseVODIMAViewController {
     
     //MARK: - Setup AdAgent
     func setupAdAgent() {
-        let adPositionCallback: StreamPositionCallback = { [unowned self] in
-            print("Time callback: \(adCurrentPosition)")
-            return adCurrentPosition
+        let adPositionCallback: StreamPositionCallback = { [weak self] in
+            guard let self = self else {
+                return Int64(0)
+            }
+            print("Time callback: \(self.adCurrentPosition)")
+            return self.adCurrentPosition
         }
         do {
             adAgent = try S2SAgent(configUrl: configUrl, mediaId: mediaId, streamPositionCallback: adPositionCallback)

@@ -46,7 +46,10 @@ class VODViewController: BaseViewController {
     //MARK: - Setup Agent
     
     func setupAgent() {
-        let streamPositionCallback: StreamPositionCallback = { [unowned self] in
+        let streamPositionCallback: StreamPositionCallback = { [weak self] in
+            guard let self = self else {
+                return Int64(0)
+            }
             print("Time callback: \(self.player.currentTime().seconds)")
             return Int64(self.player.currentTime().seconds * 1000) // we need to return milliseconds
         }

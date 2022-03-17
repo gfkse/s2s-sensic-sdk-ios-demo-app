@@ -32,9 +32,9 @@ class MainViewController: BaseViewController {
         liveNoSeekButton.setUpLayer(button: liveNoSeekButton, title: "LIVE (No Seek)")
         
         vodAdsButton.setUpLayer(button: vodAdsButton, title: "VoD IMA")
-        liveAdsButton.setUpLayer(button: liveAdsButton, title: "LIVE Ads")
-        liveAdsExtensionButton.setUpLayer(button: liveAdsExtensionButton, title: "LIVE Ads")
-        vodIMAExtensionButton.setUpLayer(button: vodIMAExtensionButton, title: "VoD IMA Extension")
+        liveAdsButton.setUpLayer(button: liveAdsButton, title: "LIVE IMA")
+        liveAdsExtensionButton.setUpLayer(button: liveAdsExtensionButton, title: "LIVE IMA")
+        vodIMAExtensionButton.setUpLayer(button: vodIMAExtensionButton, title: "VoD IMA ")
         vodExtensionButton.setUpLayer(button: vodExtensionButton, title: "Video on Demand")
         liveExtensionButton.setUpLayer(button: liveExtensionButton, title: "LIVE")
         liveNoSeekExtensionButton.setUpLayer(button: liveNoSeekExtensionButton, title: "LIVE (No Seek)")

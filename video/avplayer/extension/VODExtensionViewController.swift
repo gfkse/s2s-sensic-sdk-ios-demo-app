@@ -11,7 +11,7 @@ class VODExtensionViewController: BaseViewController {
     
     private var player: AVPlayer!
     private var playerViewController: AVPlayerViewController!
-    private weak var playerExtension: AVPlayerVODExtension?
+    private var playerExtension: AVPlayerVODExtension?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,8 +23,8 @@ class VODExtensionViewController: BaseViewController {
         
         
         let config = S2SConfig(mediaId: mediaId, url: configUrl)
-        //Important: Do not hold a strong reference to the extension
         playerExtension = AVPlayerVODExtension(avPlayerController: self.playerViewController,config: config, contentId: "contentId", customParams: ["":""])
+
         //If you want to change the parameters, please evoke the line below
         //playerExtension?.setParameters(contentId: "", customParams: ["":""])
     }

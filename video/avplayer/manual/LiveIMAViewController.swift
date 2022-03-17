@@ -54,12 +54,8 @@ class LiveIMAViewController: BaseLiveIMAViewController {
     
     //MARK: - Setup Content Agent
     func setupAgent() {
-        let streamPositionCallback: StreamPositionCallback = { [unowned self] in
-            print("Time callback: \(self.player.currentTime().seconds)")
-            return Int64(self.player.currentTime().seconds * 1000) // we need to return milliseconds
-        }
         do {
-            agent = try S2SAgent(configUrl: configUrl, mediaId: mediaId, streamPositionCallback: streamPositionCallback)
+            agent = try S2SAgent(configUrl: configUrl, mediaId: mediaId)
             registerObservers()
         } catch let error {
             print(error)
@@ -68,12 +64,8 @@ class LiveIMAViewController: BaseLiveIMAViewController {
     
     //MARK: - Setup AdAgent
     func setupAdAgent() {
-        let adPositionCallback: StreamPositionCallback = { [unowned self] in
-            print("Time callback: \(adCurrentPosition)")
-            return adCurrentPosition
-        }
         do {
-            adAgent = try S2SAgent(configUrl: configUrl, mediaId: mediaId, streamPositionCallback: adPositionCallback)
+            adAgent = try S2SAgent(configUrl: configUrl, mediaId: mediaId)
         } catch let error {
             print(error)
         }
