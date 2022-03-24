@@ -9,6 +9,7 @@ class LiveNoSeekBarViewController: BaseViewController {
     
     private let url = "https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index_1.m3u8"
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
+    private let contentIdDefault = "default"
     private var muteObservation: NSKeyValueObservation?
     
     private var playerVolume: Int?
@@ -119,7 +120,7 @@ class LiveNoSeekBarViewController: BaseViewController {
                 if player.timeControlStatus == .playing {
                     s2sAgent?.stop()
                 }
-                s2sAgent?.playStreamLive(contentId: mediaId,
+                s2sAgent?.playStreamLive(contentId: contentIdDefault,
                                          streamStart: "",
                                          streamOffset: 0,
                                          streamId: url,

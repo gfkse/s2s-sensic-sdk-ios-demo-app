@@ -9,6 +9,7 @@ class LiveViewController: BaseViewController {
     
     private let url = "https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8"
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
+    private let contentIdDefault = "default"
     private var muteObservation: NSKeyValueObservation?
     
     private var playerVolume: Int?
@@ -119,7 +120,7 @@ class LiveViewController: BaseViewController {
                 if player.timeControlStatus == .playing {
                     s2sAgent?.stop()
                 }
-                s2sAgent?.playStreamLive(contentId: mediaId,
+                s2sAgent?.playStreamLive(contentId: contentIdDefault,
                                          streamStart: "",
                                          streamOffset: 0,
                                          streamId: url,
