@@ -22,7 +22,7 @@ class LiveExtensionViewController: BaseViewController {
         setupVideoPlayer()
         
         
-        let config = S2SConfig(mediaId: mediaId, url: configUrl)        
+        let config = S2SConfig(mediaId: mediaId, url: configUrl)
         playerExtension = AVPlayerLiveExtension(avPlayerController: self.playerViewController, config: config, contentId: "contentId", customParams: ["":""])
         
         //If you want to change the parameters, please evoke the line below
@@ -46,6 +46,12 @@ class LiveExtensionViewController: BaseViewController {
         
         if player.timeControlStatus == .playing {
             player.pause()
+        }
+        if self.isMovingFromParent {
+            playerViewController.view.removeFromSuperview()
+            playerViewController.removeFromParent()
+            playerViewController.player = nil
+            playerViewController = nil
         }
     }
     

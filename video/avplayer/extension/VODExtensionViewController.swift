@@ -47,6 +47,13 @@ class VODExtensionViewController: BaseViewController {
         if player.timeControlStatus == .playing {
             player.pause()
         }
+        
+        if self.isMovingFromParent {
+            playerViewController.view.removeFromSuperview()
+            playerViewController.removeFromParent()
+            playerViewController.player = nil
+            playerViewController = nil
+        }
     }
     
     @IBAction func showChangeSpeedOptionView(_ sender: UIButton) {

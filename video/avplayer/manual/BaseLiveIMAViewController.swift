@@ -55,6 +55,8 @@ class BaseLiveIMAViewController: BaseViewController {
         if (self.isMovingFromParent) {
             playerViewController.view.removeFromSuperview()
             playerViewController.removeFromParent()
+            playerViewController.player = nil
+            playerViewController = nil
         }
     }
     

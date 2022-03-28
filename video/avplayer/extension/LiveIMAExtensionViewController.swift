@@ -38,15 +38,6 @@ class LiveIMAExtensionViewController: BaseLiveIMAViewController {
     
     //MARK: Videoplayer
     
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        if player.timeControlStatus == .playing {
-            player.pause()
-        }
-    }
-    
     @IBAction func showChangeSpeedOptionView(_ sender: UIButton) {
         showChangeSpeedAlert()
     }
