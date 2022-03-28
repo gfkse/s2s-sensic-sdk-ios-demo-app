@@ -186,7 +186,6 @@ extension LiveIMAViewController: IMAStreamManagerDelegate {
         }
         
         if event.type == IMAAdEventType.AD_PERIOD_ENDED {
-            adAgent?.stop()
             agent?.playStreamLive(contentId: contentIdDefault,
                                      streamStart: "",
                                      streamOffset: 0,
@@ -207,6 +206,7 @@ extension LiveIMAViewController: IMAStreamManagerDelegate {
         
         // IMAAdEventType.STARTED 
         if event.type.rawValue == 19 {
+            print(event.typeString)
             adAgent?.playStreamOnDemand(contentId: contentIdAd, streamId: urlString + "ads", customParams: [:])
             isPlayingAd = true
         }
