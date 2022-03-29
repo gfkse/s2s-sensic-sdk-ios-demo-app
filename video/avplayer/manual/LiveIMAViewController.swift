@@ -206,7 +206,6 @@ extension LiveIMAViewController: IMAStreamManagerDelegate {
         
         // IMAAdEventType.STARTED 
         if event.type.rawValue == 19 {
-            print(event.typeString)
             adAgent?.playStreamOnDemand(contentId: contentIdAd, streamId: urlString + "ads", customParams: [:])
             isPlayingAd = true
         }
@@ -219,6 +218,5 @@ extension LiveIMAViewController: IMAStreamManagerDelegate {
     
     func streamManager(_ streamManager: IMAStreamManager!, adDidProgressToTime time: TimeInterval, adDuration: TimeInterval, adPosition: Int, totalAds: Int, adBreakDuration: TimeInterval, adPeriodDuration: TimeInterval) {
         adCurrentPosition = Int64(time * 1000)
-        print(adCurrentPosition)
     }
 }
