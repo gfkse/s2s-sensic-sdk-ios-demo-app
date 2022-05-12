@@ -45,8 +45,18 @@ class LiveIMAExtensionViewController: BaseLiveIMAViewController {
 extension LiveIMAExtensionViewController: IMAAdsLoaderDelegate {
     func adsLoader(_ loader: IMAAdsLoader!, adsLoadedWith adsLoadedData: IMAAdsLoadedData!) {
         streamManager = adsLoadedData.streamManager
-        streamManager.delegate = self
-        streamManager.initialize(with: nil)
+        adsManager = adsLoadedData.adsManager
+        
+        if let adsManager = adsManager {
+            adsManager.delegate = self
+            playerExtension?.activateGoogleIMASupport(adsManager: adsManager)
+            adsManager.initialize(with: nil)
+        }
+        
+        if let streamManager = streamManager {
+            streamManager.delegate = self
+            streamManager.initialize(with: nil)
+        }
     }
     
     func adsLoader(_ loader: IMAAdsLoader!, failedWith adErrorData: IMAAdLoadingErrorData!) {
@@ -66,5 +76,33 @@ extension LiveIMAExtensionViewController: IMAStreamManagerDelegate {
     func streamManager(_ streamManager: IMAStreamManager!, adDidProgressToTime time: TimeInterval, adDuration: TimeInterval, adPosition: Int, totalAds: Int, adBreakDuration: TimeInterval, adPeriodDuration: TimeInterval) {
         let position = Int64(time * 1000)
         playerExtension?.trackAdPosition(position: position)
+    }
+}
+
+// MARK: - LIVE IMA
+
+extension LiveIMAExtensionViewController: IMAAdsManagerDelegate {
+    func adsManager(_ adsManager: IMAAdsManager!, didReceive event: IMAAdEvent!) {
+        // Play each ad once it has been loaded
+        
+        if event.type == IMAAdEventType.LOADED {
+            adsManager.start()
+        }
+    }
+    
+    func adsManager(_ adsManager: IMAAdsManager!, didReceive error: IMAAdError!) {
+        // Fall back to playing content
+        print("AdsManager error: " + error.message)
+        resumeVideoPlayer()
+    }
+    
+    func adsManagerDidRequestContentPause(_ adsManager: IMAAdsManager!) {
+        // Pause the content for the SDK to play ads.
+        pauseVideoPlayer()
+    }
+    
+    func adsManagerDidRequestContentResume(_ adsManager: IMAAdsManager!) {
+        // Resume the content since the SDK is done playing ads (at least for now).
+        resumeVideoPlayer()
     }
 }

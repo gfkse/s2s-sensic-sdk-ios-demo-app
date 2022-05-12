@@ -7,10 +7,11 @@ class BaseLiveIMAViewController: BaseViewController {
     
     var adsLoader: IMAAdsLoader!
     var streamManager: IMAStreamManager!
+    var adsManager: IMAAdsManager!
     var contentPlayhead: IMAAVPlayerContentPlayhead?
     var vodPlayerView: UIView!
     
-    private let adTagURLString = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpreonly&cmsid=496&vid=short_onecue&correlator="
+    private let adTagURLString = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpost&cmsid=496&vid=short_onecue&correlator="
     
     private var kAssetKey = "sN_IYUG8STe1ZzhIIE_ksA"
     var playerVolume: Int?
@@ -37,6 +38,7 @@ class BaseLiveIMAViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setUpContentPlayer()
         setUpAdsLoader()
     }
     
@@ -80,12 +82,46 @@ class BaseLiveIMAViewController: BaseViewController {
         let imaVideoDisplay = IMAAVPlayerVideoDisplay(avPlayer: self.player)
         let request = IMALiveStreamRequest(assetKey: kAssetKey, adDisplayContainer: adDisplayContainer, videoDisplay: imaVideoDisplay)
         
+        let requestIMA = IMAAdsRequest(
+            adTagUrl: self.adTagURLString,
+            adDisplayContainer: adDisplayContainer,
+            contentPlayhead: contentPlayhead,
+            userContext: nil)
+        adsLoader.requestAds(with: requestIMA)
         adsLoader.requestStream(with: request)
+        
     }
     
     @objc func contentDidFinishPlaying(_ notification: Notification) {
         adsLoader.contentComplete()
     }
+    
+    func setUpContentPlayer() {
+        // Load AVPlayer with path to your content.
+        showContentPlayer()
+        
+        contentPlayhead = IMAAVPlayerContentPlayhead(avPlayer: player)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.contentDidFinishPlaying(_:)),
+            name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+            object: player.currentItem);
+    }
+    
+    func showContentPlayer() {
+        self.addChild(playerViewController)
+        playerViewController.view.frame = vodPlayerView.bounds
+        vodPlayerView.insertSubview(playerViewController.view, at: 0)
+        playerViewController.didMove(toParent:self)
+    }
+    
+    func hideContentPlayer() {
+        // The whole controller needs to be detached so that it doesn't capture  events from the remote.
+        playerViewController.willMove(toParent:nil)
+        playerViewController.view.removeFromSuperview()
+        playerViewController.removeFromParent()
+    }
+    
     
     func registerDidEnterBackgroundObserver() {
         let notificationCenter = NotificationCenter.default
@@ -99,12 +135,31 @@ class BaseLiveIMAViewController: BaseViewController {
     
     @objc func didBecomeActive() {
         if playerViewController.player?.timeControlStatus == .paused {
-            player?.play()
+            if isPlayingAd {
+                adsManager?.resume()
+            } else {
+                playerViewController.player?.play()
+            }
         }
     }
     
     @objc func appDidEnterBackground() {
+        if isPlayingAd {
+            adsManager?.pause()
+        }
         player.pause()
+    }
+    
+    func resumeVideoPlayer() {
+        showContentPlayer()
+        isPlayingAd = false
+        player?.play()
+    }
+    
+    func pauseVideoPlayer() {
+        player.pause()
+        isPlayingAd = true
+        hideContentPlayer()
     }
 }
 
