@@ -153,7 +153,7 @@ class BaseLiveIMAViewController: BaseViewController {
     func resumeVideoPlayer() {
         showContentPlayer()
         isPlayingAd = false
-        player?.play()
+        player.play()
     }
     
     func pauseVideoPlayer() {
