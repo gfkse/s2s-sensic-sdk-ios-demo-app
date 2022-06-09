@@ -29,6 +29,8 @@ class LiveIMAViewController: BaseLiveIMAViewController {
         
         vodPlayerView = playerView
         
+        setUpAdsLoader()
+        
         registerDidBecomeActiveObserver()
         registerDidEnterBackgroundObserver()
         
@@ -144,11 +146,11 @@ class LiveIMAViewController: BaseLiveIMAViewController {
                 }
                 if !isPlayingAd {
                     agent?.playStreamLive(contentId: contentIdDefault,
-                                             streamStart: "",
-                                             streamOffset: 0,
-                                             streamId: urlString,
-                                             options: ["volume": "\(playerVolume ?? 0)", "speed": "\(player.rate)"],
-                                             customParams: [:])
+                                          streamStart: "",
+                                          streamOffset: 0,
+                                          streamId: urlString,
+                                          options: ["volume": "\(playerVolume ?? 0)", "speed": "\(player.rate)"],
+                                          customParams: [:])
                 }
             }
         }
@@ -167,8 +169,10 @@ class LiveIMAViewController: BaseLiveIMAViewController {
 extension LiveIMAViewController: IMAAdsLoaderDelegate {
     func adsLoader(_ loader: IMAAdsLoader!, adsLoadedWith adsLoadedData: IMAAdsLoadedData!) {
         streamManager = adsLoadedData.streamManager
-        streamManager.delegate = self
-        streamManager.initialize(with: nil)
+        if let streamManager = streamManager {
+            streamManager.delegate = self
+            streamManager.initialize(with: nil)
+        }
     }
     
     func adsLoader(_ loader: IMAAdsLoader!, failedWith adErrorData: IMAAdLoadingErrorData!) {
@@ -187,11 +191,11 @@ extension LiveIMAViewController: IMAStreamManagerDelegate {
         
         if event.type == IMAAdEventType.AD_PERIOD_ENDED {
             agent?.playStreamLive(contentId: contentIdDefault,
-                                     streamStart: "",
-                                     streamOffset: 0,
-                                     streamId: urlString,
-                                     options: ["volume": "\(playerVolume ?? 0)", "speed": "\(player.rate)"],
-                                     customParams: [:])
+                                  streamStart: "",
+                                  streamOffset: 0,
+                                  streamId: urlString,
+                                  options: ["volume": "\(playerVolume ?? 0)", "speed": "\(player.rate)"],
+                                  customParams: [:])
             isPlayingAd = false
         }
         
@@ -204,12 +208,12 @@ extension LiveIMAViewController: IMAStreamManagerDelegate {
             adCurrentPosition = 0
         }
         
-        // IMAAdEventType.STARTED 
+        // IMAAdEventType.STARTED
         if event.type.rawValue == 19 {
             adAgent?.playStreamOnDemand(contentId: contentIdAd, streamId: urlString + "ads", customParams: [:])
             isPlayingAd = true
         }
-
+        
     }
     
     func streamManager(_ streamManager: IMAStreamManager!, didReceive error: IMAAdError!) {
