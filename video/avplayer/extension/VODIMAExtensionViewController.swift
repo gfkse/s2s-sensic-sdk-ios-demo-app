@@ -12,7 +12,7 @@ class VODIMAExtensionViewController: BaseVODIMAViewController {
     
     @IBOutlet weak var playerView: UIView!
 
-    private var playerExtension: AVPlayerVODExtension?
+    private var playerExtension: AVPlayerVODAdExtension?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +21,7 @@ class VODIMAExtensionViewController: BaseVODIMAViewController {
         setupVideoPlayer(with: vodUrl)
         
         let config = S2SConfig(mediaId: mediaId, url: configUrl)
-        playerExtension = AVPlayerVODExtension(avPlayerController: playerViewController,config: config, contentId: "contentId", customParams: ["":""])
+        playerExtension = AVPlayerVODAdExtension(avPlayerController: playerViewController,config: config, contentId: "contentId", customParams: ["":""])
         
         //call setParameters() as soon as your player is switching over to different content. Otherwise, new content will be reported with parameters of the video played before.
         //playerExtension?.setParameters(contentId: "", customParams: ["":""])
