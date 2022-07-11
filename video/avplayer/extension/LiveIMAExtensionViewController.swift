@@ -12,7 +12,7 @@ class LiveIMAExtensionViewController: BaseLiveIMAViewController {
     
     @IBOutlet weak var playerView: UIView!
     
-    private var playerExtension: AVPlayerLiveAdExtension?
+  //  private var playerExtension: AVPlayerLiveAdExtension?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +21,7 @@ class LiveIMAExtensionViewController: BaseLiveIMAViewController {
         setupVideoPlayer(with: liveUrl)
         
         let config = S2SConfig(mediaId: mediaId, url: configUrl)
-        playerExtension = AVPlayerLiveAdExtension(avPlayerController: playerViewController, config: config, contentId: "contentId", customParams: ["":""])
+   //     playerExtension = AVPlayerLiveAdExtension(avPlayerController: playerViewController, config: config, contentId: "contentId", customParams: ["":""])
         
         //call setParameters() as soon as your player is switching over to different content. Otherwise, new content will be reported with parameters of the video played before.
         //playerExtension?.setParameters(contentId: "", customParams: ["":""])
@@ -49,7 +49,7 @@ extension LiveIMAExtensionViewController: IMAAdsLoaderDelegate {
         
         if let adsManager = adsManager {
             adsManager.delegate = self
-            playerExtension?.activateGoogleIMASupport(adsManager: adsManager)
+           // playerExtension?.activateGoogleIMASupport(adsManager: adsManager)
             adsManager.initialize(with: nil)
         }
         
@@ -66,7 +66,7 @@ extension LiveIMAExtensionViewController: IMAAdsLoaderDelegate {
 
 extension LiveIMAExtensionViewController: IMAStreamManagerDelegate {
     func streamManager(_ streamManager: IMAStreamManager!, didReceive event: IMAAdEvent!) {
-        playerExtension?.activateGoogleIMASupport(from: event)
+     //   playerExtension?.activateGoogleIMASupport(from: event)
     }
     
     func streamManager(_ streamManager: IMAStreamManager!, didReceive error: IMAAdError!) {
@@ -75,7 +75,7 @@ extension LiveIMAExtensionViewController: IMAStreamManagerDelegate {
     
     func streamManager(_ streamManager: IMAStreamManager!, adDidProgressToTime time: TimeInterval, adDuration: TimeInterval, adPosition: Int, totalAds: Int, adBreakDuration: TimeInterval, adPeriodDuration: TimeInterval) {
         let position = Int64(time * 1000)
-        playerExtension?.trackAdPosition(position: position)
+     //   playerExtension?.trackAdPosition(position: position)
     }
 }
 
