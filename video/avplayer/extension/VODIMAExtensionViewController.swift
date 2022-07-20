@@ -3,6 +3,7 @@ import s2s_sdk_ios
 import AVKit
 import AVFoundation
 import S2S_GoogleIMA
+import GoogleInteractiveMediaAds
 
 class VODIMAExtensionViewController: BaseVODIMAViewController {
     
