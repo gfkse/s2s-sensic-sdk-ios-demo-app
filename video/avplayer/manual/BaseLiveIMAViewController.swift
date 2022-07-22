@@ -77,7 +77,7 @@ class BaseLiveIMAViewController: BaseViewController {
     }
     
     func requestAds() {
-        let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.vodPlayerView)
+        let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.vodPlayerView, viewController: self)
         // Create an ad request with our ad tag, display container, and optional user context.
         let imaVideoDisplay = IMAAVPlayerVideoDisplay(avPlayer: self.player)
         let request = IMALiveStreamRequest(assetKey: kAssetKey, adDisplayContainer: adDisplayContainer, videoDisplay: imaVideoDisplay)

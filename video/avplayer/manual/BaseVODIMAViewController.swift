@@ -7,6 +7,7 @@ class BaseVODIMAViewController: BaseViewController {
     
     var adsLoader: IMAAdsLoader!
     var adsManager: IMAAdsManager!
+    var adOpener: IMALinkOpenerDelegate?
     var contentPlayhead: IMAAVPlayerContentPlayhead?
     var vodPlayerView: UIView!
     
@@ -90,7 +91,7 @@ class BaseVODIMAViewController: BaseViewController {
     
     func requestAds() {
         // Create ad display container for ad rendering.
-        let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.vodPlayerView)
+        let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.vodPlayerView, viewController: self)
         // Create an ad request with our ad tag, display container, and optional user context.
         let request = IMAAdsRequest(
             adTagUrl: self.adTagURLString,
