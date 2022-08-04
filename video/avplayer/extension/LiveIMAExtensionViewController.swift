@@ -3,7 +3,6 @@ import s2s_sdk_ios
 import AVKit
 import AVFoundation
 import GoogleInteractiveMediaAds
-import S2S_GoogleIMA
 
 class LiveIMAExtensionViewController: BaseLiveIMAViewController {
     
@@ -13,7 +12,7 @@ class LiveIMAExtensionViewController: BaseLiveIMAViewController {
     
     @IBOutlet weak var playerView: UIView!
     
-    private var playerExtension: AVPlayerLiveAdExtension?
+    private var playerExtension: AVPlayerLiveExtension?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +21,7 @@ class LiveIMAExtensionViewController: BaseLiveIMAViewController {
         setupVideoPlayer(with: liveUrl)
         
         let config = S2SConfig(mediaId: mediaId, url: configUrl)
-        playerExtension = AVPlayerLiveAdExtension(avPlayerController: playerViewController, config: config, contentId: "contentId", customParams: ["":""])
+        playerExtension = AVPlayerLiveExtension(avPlayerController: playerViewController, config: config, contentId: "contentId", customParams: ["":""])
         
         //call setParameters() as soon as your player is switching over to different content. Otherwise, new content will be reported with parameters of the video played before.
         //playerExtension?.setParameters(contentId: "", customParams: ["":""])
