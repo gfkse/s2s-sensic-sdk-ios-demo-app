@@ -44,10 +44,6 @@ class VODExtensionViewController: BaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if player.timeControlStatus == .playing {
-            player.pause()
-        }
-        
         if self.isMovingFromParent {
             playerViewController.view.removeFromSuperview()
             playerViewController.removeFromParent()
