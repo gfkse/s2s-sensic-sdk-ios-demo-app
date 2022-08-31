@@ -7,7 +7,7 @@ import GoogleInteractiveMediaAds
 class VODIMAExtensionViewController: BaseVODIMAViewController {
     
     private let configUrl = "https://demo-config-preproduction.sensic.net/s2s-ios.json"
-    private let vodUrl = "https://vbd.mitele.es/orivod/vod/bitmovin/b5/13/b513d9e3-9326-4070-9690-1541ab671df6/main.ism/picky.m3u8?hdnts=st=1661944934~exp=1661959334~acl=/*~hmac=1e8e4fa9269d75d2e097fb9f50c54c8e13aa1cf74439b4f5fd2813ddaac83d1d"
+    private let vodUrl = "https://demo-config-preproduction.sensic.net/video/video3.mp4"
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
     
     @IBOutlet weak var playerView: UIView!
