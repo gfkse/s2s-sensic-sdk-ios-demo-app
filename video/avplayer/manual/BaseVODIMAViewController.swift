@@ -7,6 +7,7 @@ class BaseVODIMAViewController: BaseViewController {
     
     var adsLoader: IMAAdsLoader!
     var adsManager: IMAAdsManager!
+    var adOpener: IMALinkOpenerDelegate?
     var contentPlayhead: IMAAVPlayerContentPlayhead?
     var vodPlayerView: UIView!
     
