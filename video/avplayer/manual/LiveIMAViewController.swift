@@ -41,6 +41,11 @@ class LiveIMAViewController: BaseLiveIMAViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        if player.timeControlStatus == .playing {
+            player.pause()
+        }
+        
         if (self.isMovingFromParent) {
             
             player.removeObserver(self, forKeyPath: "rate")
