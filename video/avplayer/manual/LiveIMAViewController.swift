@@ -44,7 +44,12 @@ class LiveIMAViewController: BaseLiveIMAViewController {
         
         if player.timeControlStatus == .playing {
             player.pause()
+            
+            if isPlayingAd {
+                adAgent?.stop()
+            }
         }
+        
         
         if (self.isMovingFromParent) {
             
