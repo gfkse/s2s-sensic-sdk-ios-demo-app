@@ -166,7 +166,7 @@ class VODIMAViewController: BaseVODIMAViewController {
 }
 
 extension VODIMAViewController: IMAAdsManagerDelegate {
-    func adsManager(_ adsManager: IMAAdsManager!, didReceive event: IMAAdEvent!) {
+    func adsManager(_ adsManager: IMAAdsManager, didReceive event: IMAAdEvent) {
         // Play each ad once it has been loaded
         if event.type == IMAAdEventType.LOADED {
             adCurrentPosition = 0
@@ -182,9 +182,9 @@ extension VODIMAViewController: IMAAdsManagerDelegate {
         }
     }
     
-    func adsManager(_ adsManager: IMAAdsManager!, didReceive error: IMAAdError!) {
+    func adsManager(_ adsManager: IMAAdsManager, didReceive error: IMAAdError) {
         // Fall back to playing content
-        print("AdsManager error: " + error.message)
+        print("AdsManager error: " + (error.message ?? ""))
         resumeVideoPlayer() // Call your method, which resumes and shows your video player
     }
     
@@ -192,13 +192,13 @@ extension VODIMAViewController: IMAAdsManagerDelegate {
         adCurrentPosition = Int64(mediaTime * 1000)
     }
     
-    func adsManagerDidRequestContentPause(_ adsManager: IMAAdsManager!) {
+    func adsManagerDidRequestContentPause(_ adsManager: IMAAdsManager) {
         // Pause the content for the SDK to play ads.
         pauseVideoPlayer() // Call your method, which pauses and hides your video player
         adAgent?.playStreamOnDemand(contentId: contentIdAd, streamId: urlString + "ads", options: [:], customParams: [:])
     }
     
-    func adsManagerDidRequestContentResume(_ adsManager: IMAAdsManager!) {
+    func adsManagerDidRequestContentResume(_ adsManager: IMAAdsManager) {
         // Resume the content since the SDK is done playing ads (at least for now).
         resumeVideoPlayer() // Call your method, which resumes and shows your video player
         adAgent?.stop()
@@ -206,14 +206,14 @@ extension VODIMAViewController: IMAAdsManagerDelegate {
 }
 
 extension VODIMAViewController: IMAAdsLoaderDelegate {
-    func adsLoader(_ loader: IMAAdsLoader!, adsLoadedWith adsLoadedData: IMAAdsLoadedData!) {
+    func adsLoader(_ loader: IMAAdsLoader, adsLoadedWith adsLoadedData: IMAAdsLoadedData) {
         adsManager = adsLoadedData.adsManager
         adsManager.delegate = self
         adsManager.initialize(with: nil)
     }
     
-    func adsLoader(_ loader: IMAAdsLoader!, failedWith adErrorData: IMAAdLoadingErrorData!) {
-        print("Error loading ads: " + adErrorData.adError.message)
+    func adsLoader(_ loader: IMAAdsLoader, failedWith adErrorData: IMAAdLoadingErrorData) {
+        print("Error loading ads: " + (adErrorData.adError.message ?? ""))
         resumeVideoPlayer()  // Call your method, which resumes and shows your video player
     }
 }

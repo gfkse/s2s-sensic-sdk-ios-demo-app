@@ -177,7 +177,7 @@ class LiveIMAViewController: BaseLiveIMAViewController {
 }
 
 extension LiveIMAViewController: IMAAdsLoaderDelegate {
-    func adsLoader(_ loader: IMAAdsLoader!, adsLoadedWith adsLoadedData: IMAAdsLoadedData!) {
+    func adsLoader(_ loader: IMAAdsLoader, adsLoadedWith adsLoadedData: IMAAdsLoadedData) {
         streamManager = adsLoadedData.streamManager
         if let streamManager = streamManager {
             streamManager.delegate = self
@@ -185,13 +185,13 @@ extension LiveIMAViewController: IMAAdsLoaderDelegate {
         }
     }
     
-    func adsLoader(_ loader: IMAAdsLoader!, failedWith adErrorData: IMAAdLoadingErrorData!) {
-        print("Error loading ads: " + adErrorData.adError.message)
+    func adsLoader(_ loader: IMAAdsLoader, failedWith adErrorData: IMAAdLoadingErrorData) {
+        print("Error loading ads: " + (adErrorData.adError.message ?? ""))
     }
 }
 
 extension LiveIMAViewController: IMAStreamManagerDelegate {
-    func streamManager(_ streamManager: IMAStreamManager!, didReceive event: IMAAdEvent!) {
+    func streamManager(_ streamManager: IMAStreamManager, didReceive event: IMAAdEvent) {
         
         if event.type == IMAAdEventType.AD_PERIOD_STARTED {
             isPlayingAd = true
@@ -226,11 +226,11 @@ extension LiveIMAViewController: IMAStreamManagerDelegate {
         
     }
     
-    func streamManager(_ streamManager: IMAStreamManager!, didReceive error: IMAAdError!) {
+    func streamManager(_ streamManager: IMAStreamManager, didReceive error: IMAAdError) {
         print("StreamManager error: \(error.message)")
     }
     
-    func streamManager(_ streamManager: IMAStreamManager!, adDidProgressToTime time: TimeInterval, adDuration: TimeInterval, adPosition: Int, totalAds: Int, adBreakDuration: TimeInterval, adPeriodDuration: TimeInterval) {
+    func streamManager(_ streamManager: IMAStreamManager, adDidProgressToTime time: TimeInterval, adDuration: TimeInterval, adPosition: Int, totalAds: Int, adBreakDuration: TimeInterval, adPeriodDuration: TimeInterval) {
         adCurrentPosition = Int64(time * 1000)
     }
 }

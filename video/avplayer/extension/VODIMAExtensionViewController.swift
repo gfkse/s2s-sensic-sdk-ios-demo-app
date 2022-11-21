@@ -40,32 +40,32 @@ class VODIMAExtensionViewController: BaseVODIMAViewController {
 }
 
 extension VODIMAExtensionViewController: IMAAdsManagerDelegate {
-    func adsManager(_ adsManager: IMAAdsManager!, didReceive event: IMAAdEvent!) {
+    func adsManager(_ adsManager: IMAAdsManager, didReceive event: IMAAdEvent) {
         // Play each ad once it has been loaded
         if event.type == IMAAdEventType.LOADED {
             adsManager.start()
         }
     }
     
-    func adsManager(_ adsManager: IMAAdsManager!, didReceive error: IMAAdError!) {
+    func adsManager(_ adsManager: IMAAdsManager, didReceive error: IMAAdError) {
         // Fall back to playing content
-        print("AdsManager error: " + error.message)
+        print("AdsManager error: " + (error.message ?? ""))
         resumeVideoPlayer()
     }
     
-    func adsManagerDidRequestContentPause(_ adsManager: IMAAdsManager!) {
+    func adsManagerDidRequestContentPause(_ adsManager: IMAAdsManager) {
         // Pause the content for the SDK to play ads.
         pauseVideoPlayer()
     }
     
-    func adsManagerDidRequestContentResume(_ adsManager: IMAAdsManager!) {
+    func adsManagerDidRequestContentResume(_ adsManager: IMAAdsManager) {
         // Resume the content since the SDK is done playing ads (at least for now).
         resumeVideoPlayer()
     }
 }
 
 extension VODIMAExtensionViewController: IMAAdsLoaderDelegate {
-    func adsLoader(_ loader: IMAAdsLoader!, adsLoadedWith adsLoadedData: IMAAdsLoadedData!) {
+    func adsLoader(_ loader: IMAAdsLoader, adsLoadedWith adsLoadedData: IMAAdsLoadedData) {
         adsManager = adsLoadedData.adsManager
         adsManager.delegate = self
         // To track ads via Sensic Agent, please add the following line in the score of this method
@@ -73,8 +73,8 @@ extension VODIMAExtensionViewController: IMAAdsLoaderDelegate {
         adsManager.initialize(with: nil)
     }
     
-    func adsLoader(_ loader: IMAAdsLoader!, failedWith adErrorData: IMAAdLoadingErrorData!) {
-        print("Error loading ads: " + adErrorData.adError.message)
+    func adsLoader(_ loader: IMAAdsLoader, failedWith adErrorData: IMAAdLoadingErrorData) {
+        print("Error loading ads: " + (adErrorData.adError.message ?? ""))
         resumeVideoPlayer()
     }
 }
