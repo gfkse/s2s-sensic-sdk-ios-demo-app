@@ -6,7 +6,7 @@ import GoogleInteractiveMediaAds
 
 class VODIMAExtensionViewController: BaseVODIMAViewController {
     
-    private let configUrl = "https://demo-config-preproduction.sensic.net/s2s-ios.json"
+    private let configUrl = "https://demo-config.sensic.net/s2s-ios.json"
     private let vodUrl = "https://demo-config-preproduction.sensic.net/video/video3.mp4"
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
     
@@ -20,7 +20,7 @@ class VODIMAExtensionViewController: BaseVODIMAViewController {
         vodPlayerView = playerView
         setupVideoPlayer(with: vodUrl)
         
-        let config = S2SConfig(mediaId: mediaId, url: configUrl)
+        let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn)
         playerExtension = AVPlayerVODExtension(avPlayerController: playerViewController,config: config, contentId: "contentId", customParams: ["":""])
         
         //call setParameters() as soon as your player is switching over to different content. Otherwise, new content will be reported with parameters of the video played before.

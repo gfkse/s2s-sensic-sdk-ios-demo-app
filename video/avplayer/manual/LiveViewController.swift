@@ -40,6 +40,7 @@ class LiveViewController: BaseViewController {
         playerViewController.player = player
         playerViewController.view.frame = playerView.bounds
         playerViewController.player?.pause()
+        addChild(playerViewController)
         playerView.addSubview(playerViewController.view)
         playerViewController.view.backgroundColor = UIColor.clear
     }
@@ -48,7 +49,7 @@ class LiveViewController: BaseViewController {
     
     func setupAgent() {
         do {
-            s2sAgent = try S2SAgent(configUrl: "https://demo-config-preproduction.sensic.net/s2s-ios.json", mediaId: mediaId)
+            s2sAgent = try S2SAgent(configUrl: "https://demo-config.sensic.net/s2s-ios.json", mediaId: mediaId, optIn: optIn)
             registerObserver()
             registerDidEnterBackgroundObserver()
             playerVolume = Int(AVAudioSession.sharedInstance().outputVolume * 100)

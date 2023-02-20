@@ -9,7 +9,7 @@ class LiveIMAViewController: BaseLiveIMAViewController {
     
     private let urlString = "https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8"
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
-    private let configUrl = "https://demo-config-preproduction.sensic.net/s2s-ios.json"
+    private let configUrl = "https://demo-config.sensic.net/s2s-ios.json"
     private let contentIdDefault = "default"
     private let contentIdAd = "ad"
     
@@ -67,7 +67,7 @@ class LiveIMAViewController: BaseLiveIMAViewController {
     //MARK: - Setup Content Agent
     func setupAgent() {
         do {
-            agent = try S2SAgent(configUrl: configUrl, mediaId: mediaId)
+            agent = try S2SAgent(configUrl: configUrl, mediaId: mediaId, optIn: optIn)
             registerObservers()
         } catch let error {
             print(error)
@@ -84,7 +84,7 @@ class LiveIMAViewController: BaseLiveIMAViewController {
             return self.adCurrentPosition
         }
         do {
-            adAgent = try S2SAgent(configUrl: configUrl, mediaId: mediaId, streamPositionCallback: adPositionCallback)
+            adAgent = try S2SAgent(configUrl: configUrl, mediaId: mediaId, optIn: optIn, streamPositionCallback: adPositionCallback)
         } catch let error {
             print(error)
         }

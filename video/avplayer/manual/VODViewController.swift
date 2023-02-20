@@ -39,6 +39,7 @@ class VODViewController: BaseViewController {
         playerViewController.player = player
         playerViewController.view.frame = playerView.bounds
         playerViewController.player?.pause()
+        addChild(playerViewController)
         playerView.addSubview(playerViewController.view)
         playerViewController.view.backgroundColor = UIColor.clear
     }
@@ -54,7 +55,7 @@ class VODViewController: BaseViewController {
             return Int64(self.player.currentTime().seconds * 1000) // we need to return milliseconds
         }
         do {
-            s2sAgent = try S2SAgent(configUrl: "https://demo-config-preproduction.sensic.net/s2s-ios.json", mediaId: mediaId, streamPositionCallback: streamPositionCallback)
+            s2sAgent = try S2SAgent(configUrl: "https://demo-config.sensic.net/s2s-ios.json", mediaId: mediaId, optIn: optIn, streamPositionCallback: streamPositionCallback)
             registerObserver()
             registerDidEnterBackgroundObserver()
             playerVolume = Int(AVAudioSession.sharedInstance().outputVolume * 100)

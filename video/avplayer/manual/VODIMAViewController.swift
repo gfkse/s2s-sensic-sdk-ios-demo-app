@@ -9,7 +9,7 @@ class VODIMAViewController: BaseVODIMAViewController {
     
     private let urlString = "https://demo-config-preproduction.sensic.net/video/video3.mp4"
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
-    private let configUrl = "https://demo-config-preproduction.sensic.net/s2s-ios.json"
+    private let configUrl = "https://demo-config.sensic.net/s2s-ios.json"
     private let contentIdDefault = "default"
     private let contentIdAd = "ad"
     
@@ -62,7 +62,7 @@ class VODIMAViewController: BaseVODIMAViewController {
             return Int64(self.player.currentTime().seconds * 1000) // we need to return milliseconds
         }
         do {
-            agent = try S2SAgent(configUrl: configUrl, mediaId: mediaId, streamPositionCallback: streamPositionCallback)
+            agent = try S2SAgent(configUrl: configUrl, mediaId: mediaId, optIn: optIn, streamPositionCallback: streamPositionCallback)
             registerObservers()
         } catch let error {
             print(error)
@@ -79,7 +79,7 @@ class VODIMAViewController: BaseVODIMAViewController {
             return self.adCurrentPosition
         }
         do {
-            adAgent = try S2SAgent(configUrl: configUrl, mediaId: mediaId, streamPositionCallback: adPositionCallback)
+            adAgent = try S2SAgent(configUrl: configUrl, mediaId: mediaId, optIn: optIn, streamPositionCallback: adPositionCallback)
         } catch let error {
             print(error)
         }

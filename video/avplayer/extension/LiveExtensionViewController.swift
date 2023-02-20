@@ -4,7 +4,7 @@ import AVKit
 import AVFoundation
 
 class LiveExtensionViewController: BaseViewController {
-    private let configUrl = "https://demo-config-preproduction.sensic.net/s2s-ios.json"
+    private let configUrl = "https://demo-config.sensic.net/s2s-ios.json"
     private let liveUrl = "https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8"
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
     @IBOutlet weak var playerView: UIView!
@@ -22,7 +22,7 @@ class LiveExtensionViewController: BaseViewController {
         setupVideoPlayer()
         
         
-        let config = S2SConfig(mediaId: mediaId, url: configUrl)
+        let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn)
         playerExtension = AVPlayerLiveExtension(avPlayerController: self.playerViewController, config: config, contentId: "contentId", customParams: ["":""])
         
         //call setParameters() as soon as your player is switching over to different content. Otherwise, new content will be reported with parameters of the video played before.
@@ -37,6 +37,7 @@ class LiveExtensionViewController: BaseViewController {
         playerViewController = AVPlayerViewController()
         playerViewController.player = player
         playerViewController.view.frame = playerView.bounds
+        addChild(playerViewController)
         playerView.addSubview(playerViewController.view)
         playerViewController.view.backgroundColor = UIColor.clear
     }

@@ -6,7 +6,7 @@ import GoogleInteractiveMediaAds
 
 class LiveIMAExtensionViewController: BaseLiveIMAViewController {
     
-    private let configUrl = "https://demo-config-preproduction.sensic.net/s2s-ios.json"
+    private let configUrl = "https://demo-config.sensic.net/s2s-ios.json"
     private let liveUrl = "https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8"
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
     
@@ -20,7 +20,7 @@ class LiveIMAExtensionViewController: BaseLiveIMAViewController {
         vodPlayerView = playerView
         setupVideoPlayer(with: liveUrl)
         
-        let config = S2SConfig(mediaId: mediaId, url: configUrl)
+        let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn)
         playerExtension = AVPlayerLiveExtension(avPlayerController: playerViewController, config: config, contentId: "contentId", customParams: ["":""])
         
         //call setParameters() as soon as your player is switching over to different content. Otherwise, new content will be reported with parameters of the video played before.

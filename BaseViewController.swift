@@ -5,8 +5,15 @@ protocol BaseViewControllerDelegate: AnyObject {
 }
 
 class BaseViewController: UIViewController {
-
+    
     weak var delegate: BaseViewControllerDelegate?
+    
+    var optIn: Bool {
+        get {
+            let defaults = UserDefaults.standard
+            return defaults.bool(forKey: "optin")
+        }
+    }
     
     lazy var gradient: CAGradientLayer = {
         let gradient = CAGradientLayer()
@@ -18,7 +25,7 @@ class BaseViewController: UIViewController {
         gradient.locations = [0.5, 1]
         return gradient
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationBarGradient()

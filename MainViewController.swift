@@ -1,7 +1,6 @@
 import UIKit
-
+import AppTrackingTransparency
 class MainViewController: BaseViewController {
-
     
     @IBOutlet weak var vodButton: UIButton!
     @IBOutlet weak var liveButton: UIButton!
@@ -10,14 +9,43 @@ class MainViewController: BaseViewController {
     @IBOutlet weak var liveExtensionButton: UIButton!
     @IBOutlet weak var liveNoSeekExtensionButton: UIButton!
     @IBOutlet weak var contentButton: UIButton!
-    @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var webSdkButton: UIButton!
     @IBOutlet weak var vodAdsButton: UIButton!
     @IBOutlet weak var liveAdsButton: UIButton!
     @IBOutlet weak var liveAdsExtensionButton: UIButton!
     
+    @IBOutlet weak var idfaButton: UIButton!
+    @IBOutlet weak var optInSwitch: UISwitch!
     @IBOutlet weak var vodIMAExtensionButton: UIButton!
     
+    @IBAction func didTapSwitchButton(_ sender: Any) {
+        let defaults = UserDefaults.standard
+        defaults.set(optInSwitch.isOn, forKey: "optin")
+        print(optInSwitch.isOn)
+    }
+    
+    @IBAction func didTapIDFAButton(_ sender: UIButton) {
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization() { status in
+                switch status {
+                case .authorized:
+                    print("authorized")
+                case .notDetermined:
+                    break
+                case .restricted:
+                    break
+                case .denied:
+                    break
+                @unknown default:
+                    break
+                }
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        idfaButton.isHidden = true
+        
+    }
     @IBOutlet weak var manualStackView: UIStackView!
     @IBOutlet weak var extensionStackView: UIStackView!
     override func viewDidLoad() {
@@ -40,8 +68,16 @@ class MainViewController: BaseViewController {
         liveNoSeekExtensionButton.setUpLayer(button: liveNoSeekExtensionButton, title: "LIVE (No Seek)")
         
         contentButton.setUpLayer(button: contentButton, title: "Content")
-        settingsButton.setUpLayer(button: settingsButton, title: "Settings")
         webSdkButton.setUpLayer(button: webSdkButton, title: "Web Sdk")
+        
+        let defaults = UserDefaults.standard
+        optInSwitch.isOn = defaults.bool(forKey: "optin")
+        
+        if #available(iOS 14, *) {
+            idfaButton.isHidden = ATTrackingManager.trackingAuthorizationStatus != .notDetermined
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     @IBAction func showManualImplementaion(_ sender: Any) {

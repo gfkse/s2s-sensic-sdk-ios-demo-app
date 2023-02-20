@@ -64,6 +64,7 @@ class BaseLiveIMAViewController: BaseViewController {
         playerViewController.player = player
         playerViewController.view.frame = vodPlayerView.bounds
         playerViewController.player?.pause()
+        addChild(playerViewController)
         vodPlayerView.addSubview(playerViewController.view)
         playerViewController.view.backgroundColor = UIColor.clear
     }
@@ -76,7 +77,7 @@ class BaseLiveIMAViewController: BaseViewController {
         let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.vodPlayerView, viewController: self)
         // Create an ad request with our ad tag, display container, and optional user context.
         let imaVideoDisplay = IMAAVPlayerVideoDisplay(avPlayer: self.player)
-        let request = IMALiveStreamRequest(assetKey: kAssetKey, adDisplayContainer: adDisplayContainer, videoDisplay: imaVideoDisplay)
+        let request = IMALiveStreamRequest(assetKey: kAssetKey, adDisplayContainer: adDisplayContainer, videoDisplay: imaVideoDisplay, userContext: nil)
         
         let requestIMA = IMAAdsRequest(
             adTagUrl: self.adTagURLString,
