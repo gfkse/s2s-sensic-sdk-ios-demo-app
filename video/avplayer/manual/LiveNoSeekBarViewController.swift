@@ -39,7 +39,7 @@ class LiveNoSeekBarViewController: BaseViewController {
         playerViewController = AVPlayerViewController()
         playerViewController.player = player
         playerViewController.view.frame = playerView.bounds
-        playerViewController.player?.pause()
+        playerViewController.player?.play()
         addChild(playerViewController)
         playerView.addSubview(playerViewController.view)
         playerViewController.view.backgroundColor = UIColor.clear
@@ -53,6 +53,12 @@ class LiveNoSeekBarViewController: BaseViewController {
             registerObserver()
             registerDidEnterBackgroundObserver()
             playerVolume = Int(AVAudioSession.sharedInstance().outputVolume * 100)
+            s2sAgent?.playStreamLive(contentId: contentIdDefault,
+                                     streamStart: "",
+                                     streamOffset: 0,
+                                     streamId: url,
+                                     options: ["volume": "\(playerVolume ?? 0)", "speed": "\(player.rate)"],
+                                     customParams: [:])
         } catch let error {
             print(error)
         }

@@ -38,7 +38,7 @@ class VODViewController: BaseViewController {
         playerViewController = AVPlayerViewController()
         playerViewController.player = player
         playerViewController.view.frame = playerView.bounds
-        playerViewController.player?.pause()
+        playerViewController.player?.play()
         addChild(playerViewController)
         playerView.addSubview(playerViewController.view)
         playerViewController.view.backgroundColor = UIColor.clear
@@ -59,6 +59,10 @@ class VODViewController: BaseViewController {
             registerObserver()
             registerDidEnterBackgroundObserver()
             playerVolume = Int(AVAudioSession.sharedInstance().outputVolume * 100)
+            s2sAgent?.playStreamOnDemand(contentId: mediaId,
+                                         streamId: url,
+                                         options: ["volume": "\(playerVolume ?? 0)", "speed": "\(player.rate)"],
+                                         customParams: [:])
         } catch let error {
             print(error)
         }

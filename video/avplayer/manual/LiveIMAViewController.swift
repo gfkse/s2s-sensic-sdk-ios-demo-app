@@ -69,6 +69,12 @@ class LiveIMAViewController: BaseLiveIMAViewController {
         do {
             agent = try S2SAgent(configUrl: configUrl, mediaId: mediaId, optIn: optIn)
             registerObservers()
+            agent?.playStreamLive(contentId: contentIdDefault,
+                                  streamStart: "",
+                                  streamOffset: 0,
+                                  streamId: urlString,
+                                  options: ["volume": "\(playerVolume ?? 0)", "speed": "\(player.rate)"],
+                                  customParams: [:])
         } catch let error {
             print(error)
         }

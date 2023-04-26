@@ -63,7 +63,7 @@ class BaseVODIMAViewController: BaseViewController {
         playerViewController = AVPlayerViewController()
         playerViewController.player = player
         playerViewController.view.frame = vodPlayerView.bounds
-        playerViewController.player?.pause()
+        playerViewController.player?.play()
         addChild(playerViewController)
         vodPlayerView.addSubview(playerViewController.view)
         playerViewController.view.backgroundColor = UIColor.clear

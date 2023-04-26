@@ -63,6 +63,10 @@ class VODIMAViewController: BaseVODIMAViewController {
         }
         do {
             agent = try S2SAgent(configUrl: configUrl, mediaId: mediaId, optIn: optIn, streamPositionCallback: streamPositionCallback)
+            agent?.playStreamOnDemand(contentId: contentIdDefault,
+                                      streamId: urlString,
+                                      options: ["volume": "\(playerVolume ?? 0)", "speed": "\(player.rate)"],
+                                      customParams: [:])
             registerObservers()
         } catch let error {
             print(error)
