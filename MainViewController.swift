@@ -14,6 +14,9 @@ class MainViewController: BaseViewController {
     @IBOutlet weak var liveAdsButton: UIButton!
     @IBOutlet weak var liveAdsExtensionButton: UIButton!
     
+    @IBOutlet weak var liveTimeShiftedButton: UIButton!
+    @IBOutlet weak var liveTimeShiftedExtensionButton: UIButton!
+    
     @IBOutlet weak var idfaButton: UIButton!
     @IBOutlet weak var optInSwitch: UISwitch!
     @IBOutlet weak var vodIMAExtensionButton: UIButton!
@@ -58,12 +61,14 @@ class MainViewController: BaseViewController {
         vodButton.setUpLayer(button: vodButton, title: "Video on Demand")
         liveButton.setUpLayer(button: liveButton, title: "LIVE")
         liveNoSeekButton.setUpLayer(button: liveNoSeekButton, title: "LIVE (No Seek)")
+        liveTimeShiftedButton.setUpLayer(button: liveTimeShiftedButton, title: "Live TimeShift")
         
         vodAdsButton.setUpLayer(button: vodAdsButton, title: "VoD IMA")
         liveAdsButton.setUpLayer(button: liveAdsButton, title: "LIVE IMA")
         liveAdsExtensionButton.setUpLayer(button: liveAdsExtensionButton, title: "LIVE IMA")
         vodIMAExtensionButton.setUpLayer(button: vodIMAExtensionButton, title: "VoD IMA ")
         vodExtensionButton.setUpLayer(button: vodExtensionButton, title: "Video on Demand")
+        liveTimeShiftedExtensionButton.setUpLayer(button: liveTimeShiftedExtensionButton, title: "Live Timeshifted")
         liveExtensionButton.setUpLayer(button: liveExtensionButton, title: "LIVE")
         liveNoSeekExtensionButton.setUpLayer(button: liveNoSeekExtensionButton, title: "LIVE (No Seek)")
         

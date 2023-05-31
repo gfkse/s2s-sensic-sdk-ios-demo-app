@@ -3,9 +3,10 @@ import s2s_sdk_ios
 import AVKit
 import AVFoundation
 
-class LiveViewController: BaseViewController {
+class LiveTimeShiftedViewController: BaseViewController {
     
    
+    @IBOutlet weak var textField: UITextField!
     @IBOutlet private weak var playerView: UIView!
     
     private let url = "https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8"
@@ -25,9 +26,11 @@ class LiveViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        createDatePicker(for: textField)
         setNavigationBarTitle(title: "Live")
         
         delegate = self
+        dateDelegate = self
         
         setupVideoPlayer() // setup the Video Player as you want
         setupAgent()
@@ -149,9 +152,13 @@ class LiveViewController: BaseViewController {
     }
 }
 
-extension LiveViewController: BaseViewControllerDelegate {
+extension LiveTimeShiftedViewController: BaseViewControllerDelegate, BaseViewControllerDelegateDate {
     func setPlayerRate(with value: Float?) {
         player.rate = value ?? 1.0
+    }
+    
+    func setDate(with dateString: String) {
+        textField.text = dateString
     }
 }
 

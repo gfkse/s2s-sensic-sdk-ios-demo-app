@@ -3,10 +3,15 @@ import UIKit
 protocol BaseViewControllerDelegate: AnyObject {
     func setPlayerRate(with value: Float?)
 }
+protocol BaseViewControllerDelegateDate: AnyObject {
+    func setDate(with dateString: String)
+}
 
 class BaseViewController: UIViewController {
-    
+    private var datePicker: UIDatePicker?
+    private var dateString = ""
     weak var delegate: BaseViewControllerDelegate?
+    weak var dateDelegate: BaseViewControllerDelegateDate?
     
     var optIn: Bool {
         get {
@@ -83,5 +88,43 @@ class BaseViewController: UIViewController {
         }
         
         delegate?.setPlayerRate(with: Float(input))
+    }
+    func createToolBar() -> UIToolbar {
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePressed))
+        toolBar.setItems([doneButton], animated: true)
+        
+        return toolBar
+    }
+    
+    func createDatePicker(for textField: UITextField) {
+        datePicker = UIDatePicker()
+        if #available(iOS 13.4, *) {
+            datePicker?.preferredDatePickerStyle = .wheels
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Select Date for Time Shift",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white]
+        )
+        textField.inputView = datePicker
+        textField.inputAccessoryView = createToolBar()
+    }
+    
+    @objc func donePressed() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        dateString = dateFormatter.string(from: datePicker?.date ?? Date())
+        dateString = dateString + "+0100"
+        dateDelegate?.setDate(with: dateString)
+        self.view.endEditing(true)
+    }
+    
+    func getStreamStart() -> String {
+        return dateString
     }
 }

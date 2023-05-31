@@ -3,12 +3,13 @@ import s2s_sdk_ios
 import AVKit
 import AVFoundation
 
-class LiveExtensionViewController: BaseViewController {
+class LiveTimeShiftedExtensionViewController: BaseViewController {
     private let configUrl = "https://demo-config.sensic.net/s2s-ios.json"
     private let liveUrl = "https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8"
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
     
     @IBOutlet weak var playerView: UIView!
+    @IBOutlet weak var textField: UITextField!
     
     private var player: AVPlayer!
     private var playerViewController: AVPlayerViewController!
@@ -18,8 +19,10 @@ class LiveExtensionViewController: BaseViewController {
         super.viewDidLoad()
         
         setNavigationBarTitle(title: "Live Video")
+        createDatePicker(for: textField)
         
         delegate = self
+        dateDelegate = self
         
         setupVideoPlayer()
         
@@ -64,7 +67,13 @@ class LiveExtensionViewController: BaseViewController {
     }
 }
 
-extension LiveExtensionViewController: BaseViewControllerDelegate {
+extension LiveTimeShiftedExtensionViewController: BaseViewControllerDelegate, BaseViewControllerDelegateDate {
+    func setDate(with dateString: String) {
+        textField.text = dateString
+        let contentMetadata = ContentMetadata(customParams: [String: String]())
+        contentMetadata.setStreamStart(streamStart: getStreamStart())
+        playerExtension?.setParameters(contentMetadata: contentMetadata)
+    }
     
     func setPlayerRate(with value: Float?) {
         player.rate = value ?? 1.0

@@ -21,10 +21,12 @@ class LiveIMAExtensionViewController: BaseLiveIMAViewController {
         setupVideoPlayer(with: liveUrl)
         
         let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn)
-        playerExtension = AVPlayerLiveExtension(avPlayerController: playerViewController, config: config, contentId: "contentId", customParams: ["":""])
+        let contentMetadata = ContentMetadata(customParams: [String: String]())
+        
+        playerExtension = AVPlayerLiveExtension(avPlayerController: playerViewController, config: config, contentMetadata: contentMetadata)
         
         //call setParameters() as soon as your player is switching over to different content. Otherwise, new content will be reported with parameters of the video played before.
-        //playerExtension?.setParameters(contentId: "", customParams: ["":""])
+        //playerExtension?.setParameters(contentMetadata)
         
         setUpAdsLoader()
         
