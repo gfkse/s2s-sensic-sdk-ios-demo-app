@@ -24,7 +24,7 @@ class LiveNoSeekBarExtensionViewController: BaseViewController {
         
        
         let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn)
-        let contentMetadata = ContentMetadata(customParams: [String: String]())
+        let contentMetadata = ContentMetadata(customParams: ["cp1": "<your new cp1 value here>", "cp2": "<your new cp2 value here>"])
         
         playerExtension = AVPlayerLiveExtension(avPlayerController: self.playerViewController, config: config, contentMetadata: contentMetadata)
         

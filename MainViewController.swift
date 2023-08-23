@@ -1,7 +1,7 @@
 import UIKit
 import AppTrackingTransparency
 class MainViewController: BaseViewController {
-    
+
     @IBOutlet weak var vodButton: UIButton!
     @IBOutlet weak var liveButton: UIButton!
     @IBOutlet weak var liveNoSeekButton: UIButton!
@@ -16,17 +16,33 @@ class MainViewController: BaseViewController {
     
     @IBOutlet weak var liveTimeShiftedButton: UIButton!
     @IBOutlet weak var liveTimeShiftedExtensionButton: UIButton!
+
+
+    @IBOutlet weak var liveAdsBitmovinButton: UIButton!
+    @IBOutlet weak var vodBitmovinButton: UIButton!
+    @IBOutlet weak var liveNoSeekBitmovinButton: UIButton!
+    @IBOutlet weak var liveBitmovinButton: UIButton!
+    @IBOutlet weak var vodAdsBitmovinButton: UIButton!
     
+    @IBOutlet weak var vodBitmovinExtensionButton: UIButton!
+    @IBOutlet weak var vodAdsBitmovinExtensionButton: UIButton!
+    @IBOutlet weak var liveBitmovinExtensionButton: UIButton!
+    @IBOutlet weak var liveNoSeekBitmovinExtensionButton: UIButton!
+    @IBOutlet weak var LiveAdsBitmovinExtensionButton: UIButton!
+    
+    @IBOutlet weak var bitmovinExtensionStackView: UIStackView!
+    @IBOutlet weak var bitmovinStackView: UIStackView!
+
     @IBOutlet weak var idfaButton: UIButton!
     @IBOutlet weak var optInSwitch: UISwitch!
     @IBOutlet weak var vodIMAExtensionButton: UIButton!
-    
+    @IBOutlet weak var bitmovinButton: UIButton!
     @IBAction func didTapSwitchButton(_ sender: Any) {
         let defaults = UserDefaults.standard
         defaults.set(optInSwitch.isOn, forKey: "optin")
         print(optInSwitch.isOn)
     }
-    
+
     @IBAction func didTapIDFAButton(_ sender: UIButton) {
         if #available(iOS 14, *) {
             ATTrackingManager.requestTrackingAuthorization() { status in
@@ -47,7 +63,7 @@ class MainViewController: BaseViewController {
             // Fallback on earlier versions
         }
         idfaButton.isHidden = true
-        
+
     }
     @IBOutlet weak var manualStackView: UIStackView!
     @IBOutlet weak var extensionStackView: UIStackView!
@@ -55,14 +71,14 @@ class MainViewController: BaseViewController {
         super.viewDidLoad()
         styleUI()
     }
-    
+
     private func styleUI() {
         setNavigationBarTitle(title: "S2S Demo App for iOS")
         vodButton.setUpLayer(button: vodButton, title: "Video on Demand")
         liveButton.setUpLayer(button: liveButton, title: "LIVE")
         liveNoSeekButton.setUpLayer(button: liveNoSeekButton, title: "LIVE (No Seek)")
         liveTimeShiftedButton.setUpLayer(button: liveTimeShiftedButton, title: "Live TimeShift")
-        
+
         vodAdsButton.setUpLayer(button: vodAdsButton, title: "VoD IMA")
         liveAdsButton.setUpLayer(button: liveAdsButton, title: "LIVE IMA")
         liveAdsExtensionButton.setUpLayer(button: liveAdsExtensionButton, title: "LIVE IMA")
@@ -71,13 +87,27 @@ class MainViewController: BaseViewController {
         liveTimeShiftedExtensionButton.setUpLayer(button: liveTimeShiftedExtensionButton, title: "Live Timeshifted")
         liveExtensionButton.setUpLayer(button: liveExtensionButton, title: "LIVE")
         liveNoSeekExtensionButton.setUpLayer(button: liveNoSeekExtensionButton, title: "LIVE (No Seek)")
-        
+
         contentButton.setUpLayer(button: contentButton, title: "Content")
         webSdkButton.setUpLayer(button: webSdkButton, title: "Web Sdk")
+
+        liveAdsBitmovinButton.setUpLayer(button: liveAdsBitmovinButton, title: "Live Ads")
+        vodBitmovinButton.setUpLayer(button: vodBitmovinButton, title: "VoD")
+        liveNoSeekBitmovinButton.setUpLayer(button: liveNoSeekBitmovinButton, title: "Live No Seek")
+        liveBitmovinButton.setUpLayer(button: liveBitmovinButton, title: "Live")
+        vodAdsBitmovinButton.setUpLayer(button: vodAdsBitmovinButton, title: "VoD Ads")
+
+
+        
+        vodBitmovinExtensionButton.setUpLayer(button: vodBitmovinExtensionButton, title: "VoD")
+        vodAdsBitmovinExtensionButton.setUpLayer(button: vodAdsBitmovinExtensionButton, title: "VoD ads")
+        liveBitmovinExtensionButton.setUpLayer(button: liveBitmovinExtensionButton, title: "Live")
+        liveNoSeekBitmovinExtensionButton.setUpLayer(button: liveNoSeekBitmovinExtensionButton, title: "Live no seek")
+        LiveAdsBitmovinExtensionButton.setUpLayer(button: LiveAdsBitmovinExtensionButton, title: "Live Ads")
         
         let defaults = UserDefaults.standard
         optInSwitch.isOn = defaults.bool(forKey: "optin")
-        
+
         if #available(iOS 14, *) {
             idfaButton.isHidden = ATTrackingManager.trackingAuthorizationStatus != .notDetermined
         } else {
@@ -85,6 +115,13 @@ class MainViewController: BaseViewController {
         }
     }
     
+    @IBAction func showBitmovinExtension(_ sender: Any) {
+        bitmovinExtensionStackView.isHidden = !bitmovinExtensionStackView.isHidden
+    }
+    
+    @IBAction func showBitmovin(_ sender: Any) {
+        bitmovinStackView.isHidden = !bitmovinStackView.isHidden
+    }
     @IBAction func showManualImplementaion(_ sender: Any) {
         manualStackView.isHidden = !manualStackView.isHidden
     }

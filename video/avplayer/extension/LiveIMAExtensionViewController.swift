@@ -21,7 +21,7 @@ class LiveIMAExtensionViewController: BaseLiveIMAViewController {
         setupVideoPlayer(with: liveUrl)
         
         let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn)
-        let contentMetadata = ContentMetadata(customParams: [String: String]())
+        let contentMetadata = ContentMetadata(customParams: ["cp1": "<your new cp1 value here>", "cp2": "<your new cp2 value here>"])
         
         playerExtension = AVPlayerLiveExtension(avPlayerController: playerViewController, config: config, contentMetadata: contentMetadata)
         

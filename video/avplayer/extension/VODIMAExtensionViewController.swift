@@ -21,7 +21,7 @@ class VODIMAExtensionViewController: BaseVODIMAViewController {
         setupVideoPlayer(with: vodUrl)
         
         let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn)
-        let contentMetadata = ContentMetadata(customParams: [String: String]())
+        let contentMetadata = ContentMetadata(customParams: ["cp1": "<your new cp1 value here>", "cp2": "<your new cp2 value here>"])
         
         playerExtension = AVPlayerVODExtension(avPlayerController: playerViewController,config: config, contentMetadata: contentMetadata)
         
@@ -42,6 +42,7 @@ class VODIMAExtensionViewController: BaseVODIMAViewController {
 }
 
 extension VODIMAExtensionViewController: IMAAdsManagerDelegate {
+
     func adsManager(_ adsManager: IMAAdsManager, didReceive event: IMAAdEvent) {
         // Play each ad once it has been loaded
         if event.type == IMAAdEventType.LOADED {
