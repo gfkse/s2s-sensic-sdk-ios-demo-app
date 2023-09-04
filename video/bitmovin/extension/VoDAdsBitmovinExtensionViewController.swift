@@ -56,10 +56,10 @@ class VoDAdsBitmovinExtensionViewController: BaseViewController {
         let playerView = PlayerView(player: player, frame: .zero)
         
         
-        let configs = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn)
+        let s2sConfig = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn)
         let contentMetadata = ContentMetadata(customParams: ["cp1": "<your new cp1 value here>", "cp2": "<your new cp2 value here>"])
         
-        playerExtension = BitmovinPlayerExtension(player: player, config: configs, contentMetadata: contentMetadata)
+        playerExtension = BitmovinPlayerExtension(player: player, config: s2sConfig, contentMetadata: contentMetadata)
         playerExtension?.activateAdSupport()
 
         playerView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
