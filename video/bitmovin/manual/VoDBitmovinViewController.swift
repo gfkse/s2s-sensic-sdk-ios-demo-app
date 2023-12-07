@@ -1,12 +1,13 @@
 import UIKit
 import BitmovinPlayer
-import s2s_sdk_ios
+import s2s_sdk_ios_bitmovin
 
 class VoDBitmovinViewController: BaseViewController {
     
     private var player: Player!
     private var s2sAgent: S2SAgent?
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
+    private let configUrl = "https://demo-config.sensic.net/s2s-ios.json"
     
     deinit {
         s2sAgent?.stop(streamPosition: Int64(self.player.currentTime * 1000))
@@ -63,7 +64,8 @@ class VoDBitmovinViewController: BaseViewController {
             return Int64(self.player.currentTime * 1000) // we need to return milliseconds
         }
         do {
-            s2sAgent = try S2SAgent(configUrl: "https://demo-config.sensic.net/s2s-ios.json", mediaId: mediaId, optIn: optIn, streamPositionCallback: streamPositionCallback)
+            let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn, crashReporting: true)
+            s2sAgent = try S2SAgent(config: config, streamPositionCallback: streamPositionCallback)
         } catch let error {
             print(error)
         }
@@ -94,4 +96,3 @@ extension VoDBitmovinViewController: PlayerListener {
                                      customParams: [:])
     }
 }
-

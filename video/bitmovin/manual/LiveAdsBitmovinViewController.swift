@@ -1,5 +1,5 @@
 import UIKit
-import s2s_sdk_ios
+import s2s_sdk_ios_bitmovin
 import BitmovinPlayer
 
 @available(iOS 14.0, *)
@@ -9,6 +9,7 @@ class LiveAdsBitmovinViewController: BaseViewController {
     private var s2sAgent: S2SAgent?
     private var adAgent: S2SAgent?
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
+    private let configUrl = "https://demo-config.sensic.net/s2s-ios.json"
     private var lastAdPosition: Int64 = 0
     private var isFirstPlay: Bool = true
     let adTagVastSkippable = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator="
@@ -76,7 +77,8 @@ class LiveAdsBitmovinViewController: BaseViewController {
     
     func setupAgent() {
         do {
-            s2sAgent = try S2SAgent(configUrl: "https://demo-config.sensic.net/s2s-ios.json", mediaId: mediaId, optIn: optIn)
+            let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn, crashReporting: true)
+            s2sAgent = try S2SAgent(config: config)
         } catch let error {
             print(error)
         }
@@ -91,7 +93,8 @@ class LiveAdsBitmovinViewController: BaseViewController {
             return lastAdPosition // we need to return milliseconds
         }
         do {
-            adAgent = try S2SAgent(configUrl: "https://demo-config.sensic.net/s2s-ios.json", mediaId: mediaId, optIn: optIn, streamPositionCallback: adPositionCallback)
+            let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn, crashReporting: true)
+            adAgent = try S2SAgent(config: config, streamPositionCallback: adPositionCallback)
         } catch let error {
             print(error)
         }

@@ -1,5 +1,5 @@
 import UIKit
-import s2s_sdk_ios
+import s2s_sdk_ios_agent_only
 import AVKit
 import AVFoundation
 
@@ -8,6 +8,7 @@ class VODViewController: BaseViewController {
     @IBOutlet private weak var playerView: UIView!
     
     private let url = "https://demo-config-preproduction.sensic.net/video/video3.mp4"
+    private let configUrl = "https://demo-config.sensic.net/s2s-ios.json"
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
     private var muteObservation: NSKeyValueObservation?
     
@@ -55,7 +56,8 @@ class VODViewController: BaseViewController {
             return Int64(self.player.currentTime().seconds * 1000) // we need to return milliseconds
         }
         do {
-            s2sAgent = try S2SAgent(configUrl: "https://demo-config.sensic.net/s2s-ios.json", mediaId: mediaId, optIn: optIn, streamPositionCallback: streamPositionCallback)
+            let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn, crashReporting: true)
+            s2sAgent = try S2SAgent(config: config, streamPositionCallback: streamPositionCallback)
             registerObserver()
             registerDidEnterBackgroundObserver()
             playerVolume = Int(AVAudioSession.sharedInstance().outputVolume * 100)
@@ -75,6 +77,11 @@ class VODViewController: BaseViewController {
     
     @objc func appDidEnterBackground() {
         s2sAgent?.flushStorageQueue()
+    }
+    
+    override func crashButtonTapped() {
+        let string: String? = "tesst"
+        s2sAgent?.impression(contentId: string!)
     }
     
     fileprivate func registerObserver() {

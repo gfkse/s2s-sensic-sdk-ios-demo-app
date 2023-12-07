@@ -1,6 +1,6 @@
 import UIKit
 import BitmovinPlayer
-import s2s_sdk_ios
+import s2s_sdk_ios_bitmovin
 
 @available(iOS 14.0, *)
 class LiveBitmovinViewController: BaseViewController {
@@ -8,6 +8,7 @@ class LiveBitmovinViewController: BaseViewController {
     private var player: Player!
     private var s2sAgent: S2SAgent?
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
+    private let configUrl = "https://demo-config.sensic.net/s2s-ios.json"
     private var isSeeking = false
     
     deinit {
@@ -58,7 +59,8 @@ class LiveBitmovinViewController: BaseViewController {
     
     func setupAgent() {
         do {
-            s2sAgent = try S2SAgent(configUrl: "https://demo-config.sensic.net/s2s-ios.json", mediaId: mediaId, optIn: optIn)
+            let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn, crashReporting: true)
+            s2sAgent = try S2SAgent(config: config)
         } catch let error {
             print(error)
         }

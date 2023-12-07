@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 import BitmovinPlayer
-import s2s_sdk_ios
+import s2s_sdk_ios_bitmovin
 
 @available(iOS 14.0, *)
 class LiveBitmovinExtensionViewController: BaseViewController {
@@ -42,7 +42,7 @@ class LiveBitmovinExtensionViewController: BaseViewController {
         let playerView = PlayerView(player: player, frame: .zero)
 
 
-        let s2sConfig = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn)
+        let s2sConfig = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn, crashReporting: true)
         let contentMetadata = ContentMetadata(customParams: ["cp1": "<your new cp1 value here>", "cp2": "<your new cp2 value here>"])
 
         playerExtension = BitmovinPlayerExtension(player: player, config: s2sConfig, contentMetadata: contentMetadata)

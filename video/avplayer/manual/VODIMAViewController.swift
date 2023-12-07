@@ -7,7 +7,7 @@ import GoogleInteractiveMediaAds
 
 class VODIMAViewController: BaseVODIMAViewController {
     
-    private let urlString = "https://demo-config-preproduction.sensic.net/video/video3.mp4"
+    private let urlString = "https://demo-config.sensic.net/video/video3.mp4"
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
     private let configUrl = "https://demo-config.sensic.net/s2s-ios.json"
     private let contentIdDefault = "default"
@@ -62,7 +62,8 @@ class VODIMAViewController: BaseVODIMAViewController {
             return Int64(self.player.currentTime().seconds * 1000) // we need to return milliseconds
         }
         do {
-            agent = try S2SAgent(configUrl: configUrl, mediaId: mediaId, optIn: optIn, streamPositionCallback: streamPositionCallback)
+            let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn, crashReporting: true)
+            agent = try S2SAgent(config: config, streamPositionCallback: streamPositionCallback)
             agent?.playStreamOnDemand(contentId: contentIdDefault,
                                       streamId: urlString,
                                       options: ["volume": "\(playerVolume ?? 0)", "speed": "\(player.rate)"],
@@ -83,7 +84,8 @@ class VODIMAViewController: BaseVODIMAViewController {
             return self.adCurrentPosition
         }
         do {
-            adAgent = try S2SAgent(configUrl: configUrl, mediaId: mediaId, optIn: optIn, streamPositionCallback: adPositionCallback)
+            let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn, crashReporting: true)
+            adAgent = try S2SAgent(config: config, streamPositionCallback: adPositionCallback)
         } catch let error {
             print(error)
         }

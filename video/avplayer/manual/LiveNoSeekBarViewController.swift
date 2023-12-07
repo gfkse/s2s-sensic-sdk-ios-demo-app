@@ -8,6 +8,7 @@ class LiveNoSeekBarViewController: BaseViewController {
     @IBOutlet private weak var playerView: UIView!
     
     private let url = "https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index_1.m3u8"
+    private let configUrl = "https://demo-config.sensic.net/s2s-ios.json"
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
     private let contentIdDefault = "default"
     private var muteObservation: NSKeyValueObservation?
@@ -49,7 +50,8 @@ class LiveNoSeekBarViewController: BaseViewController {
     
     func setupAgent() {
         do {
-            s2sAgent = try S2SAgent(configUrl: "https://demo-config.sensic.net/s2s-ios.json", mediaId: mediaId, optIn: optIn)
+            let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn, crashReporting: true)
+            s2sAgent = try S2SAgent(config: config)
             registerObserver()
             registerDidEnterBackgroundObserver()
             playerVolume = Int(AVAudioSession.sharedInstance().outputVolume * 100)

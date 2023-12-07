@@ -1,5 +1,5 @@
 import UIKit
-import s2s_sdk_ios
+import s2s_sdk_ios_avplayer_googleAds
 import AVKit
 import AVFoundation
 import GoogleInteractiveMediaAds
@@ -20,7 +20,7 @@ class VODIMAExtensionViewController: BaseVODIMAViewController {
         vodPlayerView = playerView
         setupVideoPlayer(with: vodUrl)
         
-        let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn)
+        let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn, crashReporting: true)
         let contentMetadata = ContentMetadata(customParams: ["cp1": "<your new cp1 value here>", "cp2": "<your new cp2 value here>"])
         
         playerExtension = AVPlayerVODExtension(avPlayerController: playerViewController,config: config, contentMetadata: contentMetadata)

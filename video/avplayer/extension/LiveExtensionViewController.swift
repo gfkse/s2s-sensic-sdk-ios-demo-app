@@ -24,7 +24,7 @@ class LiveExtensionViewController: BaseViewController {
         setupVideoPlayer()
         
         
-        let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn)
+        let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn, crashReporting: true)
         
         let contentMetadata = ContentMetadata(customParams: ["cp1": "<your new cp1 value here>", "cp2": "<your new cp2 value here>"])
         contentMetadata.setStreamStart(streamStart: getStreamStart())

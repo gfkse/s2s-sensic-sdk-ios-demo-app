@@ -1,6 +1,6 @@
 import Foundation
 import UIKit
-import s2s_sdk_ios
+import s2s_sdk_ios_avplayer_googleAds
 import AVKit
 import AVFoundation
 import GoogleInteractiveMediaAds
@@ -67,7 +67,8 @@ class LiveIMAViewController: BaseLiveIMAViewController {
     //MARK: - Setup Content Agent
     func setupAgent() {
         do {
-            agent = try S2SAgent(configUrl: configUrl, mediaId: mediaId, optIn: optIn)
+            let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn, crashReporting: true)
+            agent = try S2SAgent(config: config)
             registerObservers()
             agent?.playStreamLive(contentId: contentIdDefault,
                                   streamStart: "",
@@ -90,7 +91,8 @@ class LiveIMAViewController: BaseLiveIMAViewController {
             return self.adCurrentPosition
         }
         do {
-            adAgent = try S2SAgent(configUrl: configUrl, mediaId: mediaId, optIn: optIn, streamPositionCallback: adPositionCallback)
+            let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn, crashReporting: true)
+            adAgent = try S2SAgent(config: config, streamPositionCallback: adPositionCallback)
         } catch let error {
             print(error)
         }
