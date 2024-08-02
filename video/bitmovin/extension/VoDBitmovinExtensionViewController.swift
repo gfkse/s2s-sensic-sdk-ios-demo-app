@@ -3,6 +3,7 @@ import UIKit
 import BitmovinPlayer
 import s2s_sdk_ios_bitmovin
 
+@available(iOS 14.0, *)
 class VoDBitmovinExtensionViewController: BaseViewController {
     private let configUrl = "https://demo-config.sensic.net/s2s-ios.json"
     private let vodUrl = "https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8"
@@ -28,8 +29,8 @@ class VoDBitmovinExtensionViewController: BaseViewController {
         // Create player configuration
         let config = PlayerConfig()
         
-        // Create player based on player configuration
-        player = PlayerFactory.create(playerConfig: config)
+        // Create player based createPlayeryer configuration
+        player = PlayerFactory.createPlayer(playerConfig: config)
         
         // Create player view and pass the player instance to it
         let playerView = PlayerView(player: player, frame: .zero)

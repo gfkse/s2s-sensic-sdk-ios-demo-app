@@ -7,7 +7,7 @@ import GoogleInteractiveMediaAds
 
 class VODIMAViewController: BaseVODIMAViewController {
     
-    private let urlString = "https://demo-config.sensic.net/video/video3.mp4"
+    private let urlString = "https://demo-config-preproduction.sensic.net/video/video3.mp4"
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
     private let configUrl = "https://demo-config.sensic.net/s2s-ios.json"
     private let contentIdDefault = "default"

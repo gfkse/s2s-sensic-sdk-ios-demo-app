@@ -2,6 +2,7 @@ import UIKit
 import BitmovinPlayer
 import s2s_sdk_ios_bitmovin
 
+@available(iOS 14.0, *)
 class VoDBitmovinViewController: BaseViewController {
     
     private var player: Player!
@@ -29,7 +30,7 @@ class VoDBitmovinViewController: BaseViewController {
         let config = PlayerConfig()
         
         // Create player based on player configuration
-        player = PlayerFactory.create(playerConfig: config)
+        player = PlayerFactory.createPlayer(playerConfig: config)
 
         // Create player view and pass the player instance to it
         let playerView = PlayerView(player: player, frame: .zero)
@@ -72,6 +73,7 @@ class VoDBitmovinViewController: BaseViewController {
     }
 }
 
+@available(iOS 14.0, *)
 extension VoDBitmovinViewController: PlayerListener {
     func onEvent(_ event: Event, player: Player) {
         //dump(event, name: "[Player Event]", maxDepth: 1)
