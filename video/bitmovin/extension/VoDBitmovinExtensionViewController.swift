@@ -10,6 +10,7 @@ class VoDBitmovinExtensionViewController: BaseViewController {
     private var player: Player!
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
     private var playerExtension: BitmovinPlayerExtension?
+    private var playerControlView: PlayerControlView?
     
     deinit {
         player?.destroy()
@@ -40,7 +41,7 @@ class VoDBitmovinExtensionViewController: BaseViewController {
         let contentMetadata = ContentMetadata(customParams: ["cp1": "<your new cp1 value here>", "cp2": "<your new cp2 value here>"])
         
         playerExtension = BitmovinPlayerExtension(player: player, config: s2sConfig, contentMetadata: contentMetadata)
-
+        
         playerView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         playerView.frame = view.bounds
         
@@ -56,6 +57,11 @@ class VoDBitmovinExtensionViewController: BaseViewController {
         sourceConfig.posterSource = posterUrl
         player.load(sourceConfig: sourceConfig)
         player.pause()
-    
+        
+        let controlViewFrame = CGRect(x: 0, y: self.view.frame.height - 200, width: self.view.frame.width, height: 100)
+        playerControlView = PlayerControlView(player: player, frame: controlViewFrame)
+        if let controlView = playerControlView {
+            self.view.addSubview(controlView)
+        }
     }
 }

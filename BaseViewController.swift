@@ -38,13 +38,13 @@ class BaseViewController: UIViewController {
         view.layer.insertSublayer(gradient, at:0)
         
         let crashBarButtonItem = UIBarButtonItem(title: "Crash", style: .done, target: self, action: #selector(crashButtonTapped))
-                self.navigationItem.rightBarButtonItem = crashBarButtonItem
-                self.navigationItem.rightBarButtonItem?.tintColor = .red
+        self.navigationItem.rightBarButtonItem = crashBarButtonItem
+        self.navigationItem.rightBarButtonItem?.tintColor = .red
     }
     
     @objc func crashButtonTapped() {
-            fatalError("Crashing Demo app Test")
-        }
+        fatalError("Crashing Demo app Test")
+    }
     
     //MARK: NavigationBar
     
