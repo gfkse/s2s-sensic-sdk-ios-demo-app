@@ -6,7 +6,7 @@ import s2s_sdk_ios_bitmovin
 @available(iOS 14.0, *)
 class LiveBitmovinExtensionViewController: BaseViewController {
     private let configUrl = "https://demo-config.sensic.net/s2s-ios.json"
-    private let liveUrl = "https://mcdn.daserste.de/daserste/de/master.m3u8"
+    private let liveUrl = "https://live-hls-web-aje.getaj.net/AJE/01.m3u8"
     private var player: Player!
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
     private var playerExtension: BitmovinPlayerExtension?
