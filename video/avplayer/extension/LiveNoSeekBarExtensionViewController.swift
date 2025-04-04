@@ -5,7 +5,7 @@ import AVFoundation
 
 class LiveNoSeekBarExtensionViewController: BaseViewController {
     private let configUrl = "https://demo-config.sensic.net/s2s-ios.json"
-    private let liveUrl = "https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index_1.m3u8"
+    private let liveUrl = "https://live-hls-web-aje.getaj.net/AJE/01.m3u8"
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
     
     @IBOutlet weak var playerView: UIView!
@@ -26,7 +26,9 @@ class LiveNoSeekBarExtensionViewController: BaseViewController {
         let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn, crashReporting: true)
         let contentMetadata = ContentMetadata(customParams: ["cp1": "<your new cp1 value here>", "cp2": "<your new cp2 value here>"])
         
-        playerExtension = AVPlayerLiveExtension(avPlayerController: self.playerViewController, config: config, contentMetadata: contentMetadata)
+        guard let avplayer = self.playerViewController.player else { return }
+        
+        playerExtension = AVPlayerLiveExtension(avPlayer: avplayer, config: config, contentMetadata: contentMetadata)
         
         //call setParameters() as soon as your player is switching over to different content. Otherwise, new content will be reported with parameters of the video played before.
         //playerExtension?.setParameters(contentMetadata)

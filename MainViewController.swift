@@ -16,8 +16,13 @@ class MainViewController: BaseViewController {
     
     @IBOutlet weak var liveTimeShiftedButton: UIButton!
     @IBOutlet weak var liveTimeShiftedExtensionButton: UIButton!
-
-
+    
+    
+    @IBOutlet weak var audioLiveExtensionAVPlayerButton: UIButton!
+    @IBOutlet weak var audioExtensionAVPlayerButton: UIButton!
+    @IBOutlet weak var audioOnDemandAVPlayerButton: UIButton!
+    @IBOutlet weak var audioLiveAVPlayerButton: UIButton!
+    
     @IBOutlet weak var liveAdsBitmovinButton: UIButton!
     @IBOutlet weak var vodBitmovinButton: UIButton!
     @IBOutlet weak var liveNoSeekBitmovinButton: UIButton!
@@ -42,7 +47,7 @@ class MainViewController: BaseViewController {
         defaults.set(optInSwitch.isOn, forKey: "optin")
         print(optInSwitch.isOn)
     }
-
+    
     @IBAction func didTapIDFAButton(_ sender: UIButton) {
         if #available(iOS 14, *) {
             ATTrackingManager.requestTrackingAuthorization() { status in
@@ -67,6 +72,8 @@ class MainViewController: BaseViewController {
     }
     @IBOutlet weak var manualStackView: UIStackView!
     @IBOutlet weak var extensionStackView: UIStackView!
+    @IBOutlet weak var avplayerManualStackView: UIStackView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         styleUI()
@@ -105,6 +112,12 @@ class MainViewController: BaseViewController {
         liveNoSeekBitmovinExtensionButton.setUpLayer(button: liveNoSeekBitmovinExtensionButton, title: "Live no seek")
         LiveAdsBitmovinExtensionButton.setUpLayer(button: LiveAdsBitmovinExtensionButton, title: "Live Ads")
         
+    
+        audioLiveExtensionAVPlayerButton.setUpLayer(button: audioLiveExtensionAVPlayerButton, title: "Extension Live")
+        audioLiveAVPlayerButton.setUpLayer(button: audioLiveAVPlayerButton, title: "Live Stream")
+        audioExtensionAVPlayerButton.setUpLayer(button: audioExtensionAVPlayerButton, title: "Audio Extension")
+        audioOnDemandAVPlayerButton.setUpLayer(button: audioOnDemandAVPlayerButton, title: "Audio On Demand")
+        
         let defaults = UserDefaults.standard
         optInSwitch.isOn = defaults.bool(forKey: "optin")
 
@@ -113,6 +126,10 @@ class MainViewController: BaseViewController {
         } else {
             // Fallback on earlier versions
         }
+    }
+    
+    @IBAction func showAVPlayerAudioStackView(_ sender: Any) {
+        avplayerManualStackView.isHidden = !avplayerManualStackView.isHidden
     }
     
     @IBAction func showBitmovinExtension(_ sender: Any) {

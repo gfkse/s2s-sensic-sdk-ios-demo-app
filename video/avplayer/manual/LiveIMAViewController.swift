@@ -7,7 +7,7 @@ import GoogleInteractiveMediaAds
 
 class LiveIMAViewController: BaseLiveIMAViewController {
     
-    private let urlString = "https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8"
+    private let urlString = "https://live-hls-web-aje.getaj.net/AJE/01.m3u8"
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
     private let configUrl = "https://demo-config.sensic.net/s2s-ios.json"
     private let contentIdDefault = "default"

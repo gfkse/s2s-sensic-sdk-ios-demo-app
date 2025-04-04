@@ -24,7 +24,9 @@ class VODExtensionViewController: BaseViewController {
         let config = S2SConfig(mediaId: mediaId, url: configUrl, optIn: optIn, crashReporting: true)
         let contentMetadata = ContentMetadata(customParams: ["cp1": "<your new cp1 value here>", "cp2": "<your new cp2 value here>"])
         
-        playerExtension = AVPlayerVODExtension(avPlayerController: self.playerViewController,config: config, contentMetadata: contentMetadata)
+        guard let avplayer = self.playerViewController.player else { return }
+        
+        playerExtension = AVPlayerVODExtension(avPlayer: avplayer, config: config, contentMetadata: contentMetadata)
 
         //call setParameters() as soon as your player is switching over to different content. Otherwise, new content will be reported with parameters of the video played before.
         //playerExtension?.setParameters(contentMetadata)

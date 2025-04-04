@@ -39,6 +39,16 @@ class VODIMAViewController: BaseVODIMAViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        if player.timeControlStatus == .playing {
+            player.pause()
+            
+            if isPlayingAd {
+                adAgent?.stop()
+            }
+        }
+        
+        
         if (self.isMovingFromParent) {
             
             player.removeObserver(self, forKeyPath: "rate")

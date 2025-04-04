@@ -106,6 +106,9 @@ class BaseLiveIMAViewController: BaseViewController {
     }
     
     func showContentPlayer() {
+        let contentURL = URL(string: "https://live-hls-web-aje.getaj.net/AJE/01.m3u8")!
+        let playerItem = AVPlayerItem(url: contentURL)
+        playerViewController?.player?.replaceCurrentItem(with: playerItem)
         self.addChild(playerViewController)
         playerViewController.view.frame = vodPlayerView.bounds
         vodPlayerView.insertSubview(playerViewController.view, at: 0)
