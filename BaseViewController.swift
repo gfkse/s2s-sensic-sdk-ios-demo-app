@@ -24,10 +24,10 @@ class BaseViewController: UIViewController {
         let gradient = CAGradientLayer()
         gradient.type = .axial
         gradient.colors = [
-            UIColor.black.cgColor,
-            UIColor.white.cgColor
+            UIColor(red: 44/255, green: 62/255, blue: 80/255, alpha: 1).cgColor,    // Midnight blue
+            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1).cgColor   // Sky blue
         ]
-        gradient.locations = [0.5, 1]
+        gradient.locations = [0.0, 1.0]
         return gradient
     }()
     
@@ -52,7 +52,9 @@ class BaseViewController: UIViewController {
         if let navigationBar = self.navigationController?.navigationBar {
             let gradient = CAGradientLayer()
             var bounds = navigationBar.bounds
-            bounds.size.height += UIApplication.shared.statusBarFrame.size.height
+            if let statusBarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height {
+                bounds.size.height += statusBarHeight
+            }
             gradient.frame = bounds
             gradient.colors = [UIColor.orange.cgColor, UIColor.red.cgColor]
             gradient.startPoint = CGPoint(x: 0, y: 0)

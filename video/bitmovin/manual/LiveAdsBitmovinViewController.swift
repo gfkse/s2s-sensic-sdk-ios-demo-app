@@ -31,7 +31,7 @@ class LiveAdsBitmovinViewController: BaseViewController {
         view.backgroundColor = .black
         
         // Define needed resources
-        guard let streamUrl = URL(string: "https://mcdn.daserste.de/daserste/de/master.m3u8"),
+        guard let streamUrl = URL(string: "https://ireplay.tv/test/blender.m3u8"),
               let posterUrl = URL(string: "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/poster.jpg") else {
             return
         }
@@ -48,7 +48,7 @@ class LiveAdsBitmovinViewController: BaseViewController {
         let adConfig = AdvertisingConfig(schedule: [preRoll])
         config.advertisingConfig = adConfig
         // Create player based on player configuration
-        player = PlayerFactory.create(playerConfig: config)
+        player = PlayerFactory.createPlayer(playerConfig: config)
         
         // Create player view and pass the player instance to it
         let playerView = PlayerView(player: player, frame: .zero)

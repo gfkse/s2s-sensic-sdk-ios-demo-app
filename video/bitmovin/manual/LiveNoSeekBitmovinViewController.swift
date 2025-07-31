@@ -21,7 +21,7 @@ class LiveNoSeekBitmovinViewController: BaseViewController {
         view.backgroundColor = .black
 
         // Define needed resources
-        guard let streamUrl = URL(string: "https://mcdn.daserste.de/daserste/de/master.m3u8"),
+        guard let streamUrl = URL(string: "https://ireplay.tv/test/blender.m3u8"),
             let posterUrl = URL(string: "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/poster.jpg") else {
                 return
         }

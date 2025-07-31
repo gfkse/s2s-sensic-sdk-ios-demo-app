@@ -63,10 +63,6 @@ class LiveTimeShiftedExtensionViewController: BaseViewController {
             playerViewController = nil
         }
     }
-    
-    @IBAction func showChangeSpeedOptionView(_ sender: UIButton) {
-        showChangeSpeedAlert()
-    }
 }
 
 extension LiveTimeShiftedExtensionViewController: BaseViewControllerDelegate, BaseViewControllerDelegateDate {

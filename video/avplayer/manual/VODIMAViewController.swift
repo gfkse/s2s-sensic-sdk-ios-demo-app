@@ -20,10 +20,6 @@ class VODIMAViewController: BaseVODIMAViewController {
     
     @IBOutlet private weak var playerView: UIView!
     
-    @IBAction func showChangeSpeedOptionView(_ sender: UIButton) {
-        showChangeSpeedAlert()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

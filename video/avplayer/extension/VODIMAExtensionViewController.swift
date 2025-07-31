@@ -37,10 +37,6 @@ class VODIMAExtensionViewController: BaseVODIMAViewController {
         super.setUpAdsLoader()
         adsLoader.delegate = self
     }
-    
-    @IBAction func showChangeSpeedOptionView(_ sender: UIButton) {
-        showChangeSpeedAlert()
-    }
 }
 
 extension VODIMAExtensionViewController: IMAAdsManagerDelegate {

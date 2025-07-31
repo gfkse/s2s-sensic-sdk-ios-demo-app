@@ -9,7 +9,7 @@ class LiveTimeShiftedViewController: BaseViewController {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet private weak var playerView: UIView!
     
-    private let url = "https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8"
+    private let url = "https://live-hls-web-aje.getaj.net/AJE/01.m3u8"
     private let configUrl = "https://demo-config.sensic.net/s2s-ios.json"
     private let mediaId = "s2sdemomediaid_ssa_ios_new"
     private let contentIdDefault = "default"
@@ -20,10 +20,6 @@ class LiveTimeShiftedViewController: BaseViewController {
     private var playerViewController: AVPlayerViewController!
     
     private var s2sAgent: S2SAgent?
-    
-    @IBAction func showChangeSpeedOptionView(_ sender: UIButton) {
-        showChangeSpeedAlert()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

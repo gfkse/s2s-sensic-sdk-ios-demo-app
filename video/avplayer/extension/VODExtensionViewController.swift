@@ -55,10 +55,6 @@ class VODExtensionViewController: BaseViewController {
             playerViewController = nil
         }
     }
-    
-    @IBAction func showChangeSpeedOptionView(_ sender: UIButton) {
-        showChangeSpeedAlert()
-    }
 }
 
 extension VODExtensionViewController: BaseViewControllerDelegate {

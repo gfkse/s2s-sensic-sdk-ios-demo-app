@@ -56,7 +56,6 @@ class AudioPlayerViewController: BaseViewController {
         
         playbackSlider?.isContinuous = true
         playbackSlider?.tintColor = UIColor.green
-      //  playbackSlider?.addTarget(self, action: #selector(playbackSliderValueChanged(_:)), for: .valueChanged)
         
         playbackSlider?.addTarget(self, action: #selector(sliderTouchBegan(_:)), for: .touchDown)
         playbackSlider?.addTarget(self, action: #selector(sliderTouchEnded(_:)), for: [.touchUpInside, .touchUpOutside, .touchCancel])
@@ -65,15 +64,15 @@ class AudioPlayerViewController: BaseViewController {
     }
     
     @objc func sliderTouchBegan(_ sender: UISlider) {
-           player?.pause()
-       }
-
-       // Called when user releases the slider
-       @objc func sliderTouchEnded(_ sender: UISlider) {
-           let targetTime =  CMTime(seconds: Double(sender.value), preferredTimescale: CMTimeScale(NSEC_PER_SEC))
-           player.seek(to: targetTime)
-           player?.play()
-       }
+        player?.pause()
+    }
+    
+    // Called when user releases the slider
+    @objc func sliderTouchEnded(_ sender: UISlider) {
+        let targetTime =  CMTime(seconds: Double(sender.value), preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+        player.seek(to: targetTime)
+        player?.play()
+    }
     
     @objc func playbackSliderValueChanged(_ playbackSlider: UISlider) {
         let seconds = Int64(playbackSlider.value)
@@ -106,17 +105,17 @@ class AudioPlayerViewController: BaseViewController {
     
     func setupRemoteTransportControls() {
         let commandCenter = MPRemoteCommandCenter.shared()
-
+        
         commandCenter.playCommand.addTarget { [weak self] event in
             self?.player?.play()
             return .success
         }
-
+        
         commandCenter.pauseCommand.addTarget { [weak self] event in
             self?.player?.pause()
             return .success
         }
-
+        
         commandCenter.togglePlayPauseCommand.addTarget { [weak self] event in
             guard let player = self?.player else { return .commandFailed }
             player.rate == 0.0 ? player.play() : player.pause()
@@ -126,16 +125,16 @@ class AudioPlayerViewController: BaseViewController {
     
     func updateNowPlayingInfo() {
         guard let currentItem = player?.currentItem else { return }
-
+        
         var nowPlayingInfo = [String: Any]()
         nowPlayingInfo[MPMediaItemPropertyTitle] = "Test Audio Stream"
         
-        if let duration = currentItem.asset.duration.seconds as? Double {
-            nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = duration
-            nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = player?.currentTime().seconds
-            nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = player?.rate
-        }
-
+        let duration = currentItem.asset.duration.seconds
+        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = duration
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = player?.currentTime().seconds
+        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = player?.rate
+        
+        
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
     }
 }

@@ -40,10 +40,6 @@ class LiveIMAExtensionViewController: BaseLiveIMAViewController {
     }
     
     //MARK: Videoplayer
-    
-    @IBAction func showChangeSpeedOptionView(_ sender: UIButton) {
-        showChangeSpeedAlert()
-    }
 }
 
 extension LiveIMAExtensionViewController: IMAAdsLoaderDelegate {

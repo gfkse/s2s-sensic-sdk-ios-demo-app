@@ -19,10 +19,6 @@ class LiveNoSeekBarViewController: BaseViewController {
     
     private var s2sAgent: S2SAgent?
     
-    @IBAction func showChangeSpeedOptionView(_ sender: UIButton) {
-        showChangeSpeedAlert()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

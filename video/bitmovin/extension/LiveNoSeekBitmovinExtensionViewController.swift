@@ -37,7 +37,7 @@ class LiveNoSeekBitmovinExtensionViewController: BaseViewController {
 
         
         // Create player based on player configuration
-        player = PlayerFactory.create(playerConfig: config)
+        player = PlayerFactory.createPlayer(playerConfig: config)
         
         // Create player view and pass the player instance to it
         let playerView = PlayerView(player: player, frame: .zero)

@@ -60,10 +60,6 @@ class LiveExtensionViewController: BaseViewController {
             playerViewController = nil
         }
     }
-    
-    @IBAction func showChangeSpeedOptionView(_ sender: UIButton) {
-        showChangeSpeedAlert()
-    }
 }
 
 extension LiveExtensionViewController: BaseViewControllerDelegate {

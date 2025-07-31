@@ -17,7 +17,12 @@ class ContentViewController: UIViewController {
         super.viewDidLoad()
     
         guard let url = URL(string: stringUrl) else { return }
-        s2sAgent = try! S2SAgent(configUrl: "https://demo-config-preproduction.sensic.net/s2s-ios.json", mediaId: "s2sdemomediaid_sst_ios")
+        do {
+            let config = S2SConfig(mediaId: mediaId, url: configUrl, crashReporting: true)
+            s2sAgent = try S2SAgent(config: config)
+        } catch let error {
+            print(error)
+        }
         s2sAgent?.impression(contentId: "default")
         
         let request = URLRequest(url: url)
@@ -37,9 +42,7 @@ class ContentViewController: UIViewController {
 
 extension ContentViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        
-        guard let url = webView.url?.absoluteString else { return }
+        guard (webView.url?.absoluteString) != nil else { return }
         
         /** Please use your country-specific custom params https://confluence-docu.gfk.com/display/SENSIC/Client+specific+customizations  */
         let customParams: [String: String] = [:]
@@ -52,9 +55,5 @@ extension ContentViewController: WKNavigationDelegate {
         //customParams.put("cp1", "appsBundleID");
         
         s2sAgent?.impression(contentId: "default", customParams: ["":""])
-    }
-    
-    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
     }
 }
